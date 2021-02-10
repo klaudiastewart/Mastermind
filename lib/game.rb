@@ -16,11 +16,11 @@ class Game
     user_input = gets.chomp
 
     if user_input == "q"
-      game.quit
+      quit
     elsif user_input == "i"
-      game.instructions
+      instructions
     else user_input == "p"
-      game.play
+      play
     end
   end
 
@@ -41,9 +41,9 @@ class Game
   def play_again?
     replay_input = gets.chomp
     if replay_input == "p"
-      game.start
+      start
     elsif replay_input == "q"
-      game.quit
+      quit
     else
       p "Please enter (p)lay again or (q)uit"
     end
@@ -51,8 +51,8 @@ class Game
   end
 
   def play
-    game.end_game if turn.check_solution == true
-    
+    end_game if turn.check_solution == true
+    turn.get_guess if turn.zero_correct == true
   end
 
   def generate_solution
