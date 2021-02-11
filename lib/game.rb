@@ -1,11 +1,13 @@
 ##CODE FRAMEWORK
 
 class Game
-  attr_reader :answer
+  attr_reader :answer,
+              :game_start
 
-  def initialize  #(argument)
+  def initialize (game_start) #(argument)
     # @argument = argument
     @answer = []
+    @game_start = game_start
   end
 
   def end_game
@@ -16,26 +18,34 @@ class Game
 
   def generate_solution
     #randomly generate 4 color solution string
-    colors_positions = {  'y' => 1,
-                          'r' => 2,
-                          'g' => 3,
-                          'b' => 4
-                        }
-      colors_positions.each do |color,position|
-        @answer.push(color, position).shuffle!
-      end
+    colors = ['y', 'r', 'g', 'b']
+    4.times do 
+      @answer << colors.sample
+    end
+    @answer
   end
+
+
+  #   colors_positions = {  'y' => 1,
+  #                         'r' => 2,
+  #                         'g' => 3,
+  #                         'b' => 4
+  #                       }
+  #     colors_positions.each do |color,position|
+  #       @answer.push(color, position).shuffle!
+  #     end
+  # end
 
   def instructions
     p "insert directions here"
   end
 
   def play
-    show_cheat_answer if turn.cheat == true
-    end_game if turn.check_solution == true
     turn.get_guess
-    turn.get_guess if turn.zero_correct == true
-    turn.check_position_color
+    # show_cheat_answer if turn.show_cheat_answer == true
+    # end_game if turn.check_solution == true
+    # turn.get_guess if turn.zero_correct == true
+    # turn.check_position_color
   end
 
   def play_again?
