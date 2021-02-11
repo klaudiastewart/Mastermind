@@ -3,8 +3,8 @@
 class Game
   attr_reader :answer
 
-  def initialize(argument)
-    @argument = argument
+  def initialize  #(argument)
+    # @argument = argument
     @answer = []
   end
 
@@ -53,12 +53,12 @@ class Game
   def quit
     p "You are now exiting the game"
     p "Do you want to play again? Please enter 'y' for yes and 'n' for no."
-    quit_input = gets.chomp\n
+    quit_input = gets.chomp
     start if quit_input == "y"
   end
 
   def start
-    p "Welcome to MASTERMIND"\n
+    p "Welcome to MASTERMIND\n"
     p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     p ">"
 
@@ -68,8 +68,11 @@ class Game
       quit
     elsif user_input == "i"
       instructions
-    else user_input == "p"
+    elsif user_input == "p"
       play
+    else
+      p "Invalid input."
+      start
     end
   end
 end
