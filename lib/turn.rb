@@ -33,6 +33,8 @@ class Turn
   def get_guess
     p "Please enter a guess"
     guess_input = gets.chomp
+    quit if in_game_input == "q"
+    show_cheat_answer if in_game_input == "c"
     @turn_counter += 1
     valid_input?
     check_solution
@@ -44,7 +46,10 @@ class Turn
   def show_guess_results
     p "#{guess_input} has #{colors_correct} of the correct elements with #{positions_correct} in the correct positions
     You've taken #{@turn_counter} guess."
-
   end
 
+  def show_cheat_answer
+    p "The secret code is #{@answer}."
+    quit
+  end
 end

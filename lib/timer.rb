@@ -1,4 +1,3 @@
-
 class Timer
 #attr_reader
 
