@@ -1,5 +1,3 @@
-##CODE FRAMEWORK
-
 class Game
   attr_reader :answer,
               :game_start
@@ -11,7 +9,9 @@ class Game
   end
 
   def end_game
+    #STOP run_time
     p "Congratulations! You guessed the sequence #{answer} in #{turn_counter} over #{end_time}" #break time into seconds
+    #RESET run_time
     p "Do you want to (p)lay again or (q)uit?"
     game.play_again?
   end
@@ -19,13 +19,13 @@ class Game
   def generate_solution
     #randomly generate 4 color solution string
     colors = ['y', 'r', 'g', 'b']
-    4.times do 
+    4.times do
       @answer << colors.sample
     end
     @answer
   end
 
-
+  # def generate_solution
   #   colors_positions = {  'y' => 1,
   #                         'r' => 2,
   #                         'g' => 3,
@@ -41,11 +41,8 @@ class Game
   end
 
   def play
+    #START run_time
     turn.get_guess
-    # show_cheat_answer if turn.show_cheat_answer == true
-    # end_game if turn.check_solution == true
-    # turn.get_guess if turn.zero_correct == true
-    # turn.check_position_color
   end
 
   def play_again?
