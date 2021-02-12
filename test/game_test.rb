@@ -31,12 +31,12 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game'
 #?? require './lib/player'
-#?? require './lib/turn'
+?? require './lib/turn'
 
 class GameTest < Minitest::Test
   def setup
     @game = Game.new   #(player1=nil, player2=nil)
-    game.start
+    @game.start_game
   end
 
   def test_game_exists
@@ -44,9 +44,13 @@ class GameTest < Minitest::Test
     assert_instance_of Game, @game
   end
 
+  def test_secret_code_attributes
+    assert_equal String, @game.secret_code.class
+    assert_equal 4, @game.secret_code.length
+  end
+
   def test_start_play_option
     # skip
     user_input = 'p'
-
   end
 end
