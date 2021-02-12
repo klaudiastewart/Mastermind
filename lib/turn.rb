@@ -6,59 +6,51 @@ class Turn
     @secret_code = secret_code
     @turn_counter = 0
     @pegs_array = []
-    @element_pegs = []  #reset
-    @position_pegs = []  #reset
-  end
-
-  def assign_pegs
-    @pegs_array.shuffle
-    #pull info from check_positions,
   end
 
   def check_positions_colors
-    @position_pegs = []  #reset
-    @element_pegs = []  #reset
+    @pegs_array = []  #reset
     if @secret_code[0] == @guess_input[0]
-      @position_pegs << "red peg"
-      @element_pegs << "white peg"
+      @pegs_array << "red"
+      @pegs_array << "white"
     end
     if @secret_code[1] == @guess_input[1]
-      @position_pegs << "red peg"
-      @element_pegs << "white peg"
+      @pegs_array << "red"
+      @pegs_array << "white"
     end
     if @secret_code[2] == @guess_input[2]
-      @position_pegs << "red peg"
-      @element_pegs << "white peg"
+      @pegs_array << "red"
+      @pegs_array << "white"
     end
     if @secret_code[3] == @guess_input[3]
-      @position_pegs << "red peg"
-      @element_pegs << "white peg"
+      @pegs_array << "red"
+      @pegs_array << "white"
     end
     if @secret_code[0] == @guess_input[1] || @secret_code[0] == @guess_input[2] || @secret_code[0] == @guess_input[3]
-      @element_pegs << "white peg"
+      @pegs_array << "white"
     end
     if @secret_code[1] == @guess_input[0] || @secret_code[1] == @guess_input[2] || @secret_code[1] == @guess_input[3]
-      @element_pegs << "white peg"
+      @pegs_array << "white"
     end
     if @secret_code[2] == @guess_input[0] || @secret_code[2] == @guess_input[1] || @secret_code[2] == @guess_input[3]
-      @element_pegs << "white peg"
+      @pegs_array << "white"
     end
     if @secret_code[3] == @guess_input[0] || @secret_code[3] == @guess_input[1] || @secret_code[3] == @guess_input[2]
-      @element_pegs << "white peg"
+      @pegs_array << "white"
     end
   end
 
-  def check_solution
-    @guess_input == @secret_code
-  end
+  # def check_solution    ##MOVED TO GAME.rb
+  #   @guess_input == @secret_code
+  # end
 
   def get_guess
     p "Please enter a guess. If you want to quit, press 'q' or press 'c' for the solution."
     @guess_input = gets.chomp
+    @turn_counter += 1
     quit if @guess_input == "q"
     show_cheat_answer if @guess_input == "c"
-    @turn_counter += 1
-    # game.generate_solution
+    # game.generate_solution    ##MOVED TO GAME.rb
     # check_solution
     # valid_input?
     # zero_correct
@@ -67,14 +59,13 @@ class Turn
 
   def show_cheat_answer
     p "The secret code is #{@secret_code}."
-    quit
+    # quit  ##NO call reverses
   end
 
   def show_guess_results
-    require "pry"; binding.pry
-    p "#{@guess_input} has #{@elements_pegs.length.to_s} of the correct elements with #{@positions_pegs.length.to_s} in the correct positions
-    You've taken #{@turn_counter} guess."
-    # game.play
+    # require "pry"; binding.pry
+    p "#{@guess_input} has #{@pegs_array.count('white').to_s} of the correct elements with #{@pegs_array.count('red').to_s} in the correct positions."
+    p "You've taken #{@turn_counter} guess."
   end
 
   def valid_input?
@@ -93,7 +84,6 @@ class Turn
       p "You got zero correct, please guess again."
       @turn_counter += 1
       get_guess
-    # else
     #   break
     end
   end

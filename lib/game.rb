@@ -44,14 +44,16 @@ class Game
   # end
 
   def play
-    #START run_time
     turn = Turn.new(@secret_code)
+    #START run_time
     turn.get_guess
-    turn.check_solution
+    #OR turn.end_game if turn.check_solution
+    turn.end_game if turn.guess_input == @secret_code
     turn.valid_input?
     turn.zero_correct
     turn.check_positions_colors
     turn.show_guess_results
+    play
   end
 
   def play_again?
@@ -73,9 +75,9 @@ class Game
     start if quit_input == "y"
   end
 
-  def welcome
-
-  end
+  # def welcome
+  #
+  # end
 
   def start_game
     p "Welcome to MASTERMIND"
