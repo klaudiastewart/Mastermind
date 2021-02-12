@@ -1,9 +1,11 @@
 class Game
   attr_reader :answer,
-              :secret_code
+              :secret_code,
+              :run_time
 
-  def initialize (secret_code)
+  def initialize (secret_code = nil)
     @secret_code = secret_code
+    @run_time = 0
   end
 
   def end_game

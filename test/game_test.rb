@@ -49,8 +49,8 @@ class GameTest < Minitest::Test
     assert_equal 4, @game.secret_code.length
   end
 
-  def test_start_play_option
+  def test_game_time_starts
     # skip
-    user_input = 'p'
+    assert_equal 0, @game.run_time
   end
 end
