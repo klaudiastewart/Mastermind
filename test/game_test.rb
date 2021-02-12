@@ -48,6 +48,5 @@ class GameTest < Minitest::Test
     # skip
     user_input = 'p'
 
-    
   end
 end

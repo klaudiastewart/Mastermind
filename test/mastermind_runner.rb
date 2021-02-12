@@ -5,9 +5,15 @@ require './lib/game'
 require './lib/timer'
 require './lib/turn'
 
-# game = Game.new   #(player1=nil, player2=nil)
-turn = Turn.new #(board)
-timer = Timer.new #(board)
+# turn = Turn.new #(board)
+# timer = Timer.new #(board)
 
-game = Game.new(turn)
-game.start
+
+secret_code = []
+colors = ['y', 'r', 'g', 'b']
+4.times do
+  secret_code << colors.sample
+end
+
+game = Game.new(secret_code)
+game.start_game

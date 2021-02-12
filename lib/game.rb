@@ -1,11 +1,9 @@
 class Game
   attr_reader :answer,
-              :game_start
+              :secret_code
 
-  def initialize (game_start) #(argument)
-    # @argument = argument
-    @answer = []
-    @game_start = game_start
+  def initialize (secret_code)
+    @secret_code = secret_code
   end
 
   def end_game
@@ -40,9 +38,20 @@ class Game
     p "insert directions here"
   end
 
+  # def go_guess
+  #   turn = Turn.new
+  #   turn.get_guess
+  # end
+
   def play
     #START run_time
+    turn = Turn.new(@secret_code)
     turn.get_guess
+    turn.check_solution
+    turn.valid_input?
+    turn.zero_correct
+    turn.check_positions_colors
+    turn.show_guess_results
   end
 
   def play_again?
@@ -64,8 +73,12 @@ class Game
     start if quit_input == "y"
   end
 
-  def start
-    p "Welcome to MASTERMIND\n"
+  def welcome
+
+  end
+
+  def start_game
+    p "Welcome to MASTERMIND"
     p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     p ">"
 
