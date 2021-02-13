@@ -8,6 +8,10 @@ class TimerTest < Minitest::Test
     @timer = Timer.new(start_time)
   end
 
+  def test_timer_exists
+    assert_instance_of Timer, @timer
+  end
+
   def test_default_start_time
     assert @timer.start_time
   end
@@ -19,6 +23,6 @@ class TimerTest < Minitest::Test
   def test_total_time_of_game
     # skip
     @timer.end_time
-    assert_equal (), @timer.total_time
+    refute_equal 0, @timer.total_time
   end
 end

@@ -1,13 +1,9 @@
 class Timer
-  attr_reader :start_time
-              # :end_time?
+  attr_reader :start_time,
+              :end_time
 
   def initialize(start_time)
     @start_time = Time.now
-    @end_time   = Time.now
-  end
-
-  def end_time
     @end_time = Time.now
   end
 
