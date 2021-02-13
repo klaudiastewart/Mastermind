@@ -5,6 +5,7 @@ class Timer
   def initialize  #(start_time)  #? end_time)
     @start_time = Time.now
     @end_time = Time.now
+    # require "pry"; binding.pry
   end
 
   # def begin_game
@@ -12,6 +13,7 @@ class Timer
   # end
 
   def total_time
+    # require "pry"; binding.pry
     (@end_time - @start_time)
   end
 end

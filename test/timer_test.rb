@@ -5,7 +5,7 @@ require './lib/timer'
 class TimerTest < Minitest::Test
   def setup
     start_time = Time.now
-    @timer = Timer.new(start_time)
+    @timer = Timer.new #(start_time)
   end
 
   def test_timer_exists

@@ -14,8 +14,14 @@ class Game
   end
 
   def end_game
-    @timer.end_time
-    puts "Congratulations! You guessed the sequence #{@turn.guess_input} in #{@turn_counter} guess(es) over #{@timer.total_time}" #break time into seconds
+    @timer2 = Timer.new
+    @timer2.end_time
+    run_time = (@timer2.end_time - @timer1.start_time).to_i
+    time_in_min = run_time / 60
+    time_in_sec = run_time - (time_in_min * 60)
+    print run_time
+    require "pry"; binding.pry
+    puts "Congratulations! You guessed the sequence #{@turn.guess_input} in #{@turn_counter} guess(es) over #{time_in_min} minutes, #{time_in_sec} seconds." #break time into seconds
     puts "Do you want to (p)lay again or (q)uit?"
     play_again?
   end
@@ -31,7 +37,7 @@ class Game
 
   def play
     turn = Turn.new(@code.secret_code.join)
-    require "pry"; binding.pry
+    # require "pry"; binding.pry
 
     # timer = Timer.new #(start_time)
     # timer.start_time
@@ -59,8 +65,8 @@ class Game
 
   def pre_play
     # turn = Turn.new   #(@code.secret_code)
-    @timer = Timer.new #(start_time)
-    @timer.start_time
+    @timer1 = Timer.new #(start_time)
+    @timer1.start_time
     @code = Code.new(4, "Red", "Blue", "Green", "Yellow")
     @code.make_secret_code
     @turn = Turn.new(@code.secret_code.join)

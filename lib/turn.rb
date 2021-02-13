@@ -6,6 +6,7 @@ class Turn
     @secret_code = secret_code
     # @turn_counter = 0
     @pegs_array = []
+    @counter = 0
   end
 
   def check_positions_colors
@@ -48,7 +49,7 @@ class Turn
   def get_guess
     puts "Please enter a guess. If you want to quit, press 'q' or press 'c' for the solution."
     @guess_input = gets.chomp
-    @turn_counter += 1
+    @counter += 1
     quit if @guess_input == "q"
     show_cheat_answer if @guess_input == "c"
     # game.generate_solution    ##MOVED TO GAME.rb
@@ -67,7 +68,7 @@ class Turn
     # require "pry"; binding.pry
     #clear screen
     puts "#{@guess_input} has #{@pegs_array.count('white').to_s} of the correct elements with #{@pegs_array.count('red').to_s} in the correct positions."
-    puts "You've taken #{@turn_counter} guess."
+    puts "You've taken #{@counter} guess."
   end
 
   # def valid_input?
