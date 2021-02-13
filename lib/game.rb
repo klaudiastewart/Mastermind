@@ -9,11 +9,10 @@ class Game
   end
 
   def end_game
-    #STOP run_time
-    p "Congratulations! You guessed the sequence #{answer} in #{turn_counter} over #{end_time}" #break time into seconds
-    #RESET run_time
+    @timer.end_timer
+    p "Congratulations! You guessed the sequence #{answer} in #{turn_counter} over #{@timer.total_time}" #break time into seconds
     p "Do you want to (p)lay again or (q)uit?"
-    game.play_again?
+    play_again?
   end
 
   def generate_solution
@@ -48,6 +47,7 @@ class Game
   def play
     turn = Turn.new(@secret_code)
     #START run_time
+    @timer.start_time
     turn.get_guess
     #OR turn.end_game if turn.check_solution
     turn.end_game if turn.guess_input == @secret_code

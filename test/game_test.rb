@@ -31,7 +31,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/game'
 #?? require './lib/player'
-?? require './lib/turn'
+require './lib/turn'
 
 class GameTest < Minitest::Test
   def setup

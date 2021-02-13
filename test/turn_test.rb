@@ -5,7 +5,7 @@ require './lib/turn'
 
 class TurnTest < Minitest::Test
   def setup
-    @turn = Turn.new   #(player1=nil, player2=nil)
+    @turn = Turn.new(nil)   #(player1=nil, player2=nil)
     @game = Game.new  #Keep this or not?
   end
 
@@ -40,5 +40,4 @@ class TurnTest < Minitest::Test
 
     assert_equal String, @game.guess_input.first.class
   end
-
-  
+end
