@@ -19,6 +19,8 @@ class Code
       @secret_code << [@c1, @c2, @c3, @c4, @c5].sample if @length == 6
       @secret_code << [@c1, @c2, @c3, @c4, @c5, @c6].sample if @length == 8
     end
+    # @secret_code = @secret_code.join
+
   end
 
 end
