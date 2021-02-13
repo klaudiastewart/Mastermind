@@ -2,13 +2,14 @@
 class Turn
   attr_reader :board, :turn_counter, :pegs_array, :guess_input
 
-  def initialize  #(secret_code)
-    # @secret_code = secret_code
+  def initialize(secret_code)
+    @secret_code = secret_code
     @turn_counter = 0
     @pegs_array = []
   end
 
   def check_positions_colors
+    # require "pry"; binding.pry
     @pegs_array = []  #reset
     if @secret_code[0] == @guess_input[0]
       @pegs_array << "red"
@@ -69,19 +70,26 @@ class Turn
     puts "You've taken #{@turn_counter} guess."
   end
 
-  def valid_input?
-    #check quess.length == 4 && correct letter
-    if @guess_input.length != 4
-      puts "Please insert a valid guess."
-      get_guess
-    else
-      check_positions_colors
-    end
+  # def valid_input?
+  #   #check quess.length == 4 && correct letter
+  #   # if @game.pre_play_input.length != 4
+  #   #   puts "Please insert a valid guess."
+  #   #   get_guess
+  #   elsif @guess_input.length != 4
+  #     puts "Please insert a valid guess."
+  #     get_guess
+  #   else
+  #     check_positions_colors
+  #   end
+  # end
+  def turn_look
+    p "hi"
+    # require "pry"; binding.pry
   end
 
   def zero_correct
     #first check, if no match, go direct to next guess
-    if @secret_code.include?(@guess_input[0]) == false && @secret_code.include?(@guess_input[1]) == false && @secret_code.include?(@guess_input[2]) == false && @secret_code.include?(@guess_input[3]) == false
+    if game.pre_play.secret_code.include?(@guess_input[0]) == false && game.pre_play.secret_code.include?(@guess_input[1]) == false && game.pre_play.secret_code.include?(@guess_input[2]) == false && game.pre_play.secret_code.include?(@guess_input[3]) == false
       puts "You got zero correct, please guess again."
       @turn_counter += 1
       get_guess

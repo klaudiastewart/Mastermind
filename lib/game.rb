@@ -1,11 +1,13 @@
 class Game
   attr_reader :answer,
               :secret_code,
-              :run_time
+              :run_time,
+              :pre_play_input
 
   def initialize (secret_code = nil)
     @secret_code = secret_code
     @run_time = 0
+    @pre_play_input = pre_play_input
   end
 
   def end_game
@@ -14,26 +16,6 @@ class Game
     puts "Do you want to (p)lay again or (q)uit?"
     play_again?
   end
-
-  def generate_solution
-    #randomly generate 4 color solution string
-    colors = ['y', 'r', 'g', 'b']
-    4.times do
-      @answer << colors.sample
-    end
-    @answer
-  end
-
-  # def generate_solution
-  #   colors_positions = {  'y' => 1,
-  #                         'r' => 2,
-  #                         'g' => 3,
-  #                         'b' => 4
-  #                       }
-  #     colors_positions.each do |color,position|
-  #       @answer.push(color, position).shuffle!
-  #     end
-  # end
 
   def instructions
     puts "insert directions here"
@@ -51,7 +33,7 @@ class Game
     turn.get_guess
     #OR turn.end_game if turn.check_solution
     end_game if turn.guess_input == code.secret_code
-    turn.valid_input?
+    # turn.valid_input?
     turn.zero_correct
     turn.check_positions_colors
     turn.show_guess_results
@@ -71,21 +53,28 @@ class Game
   end
 
   def pre_play
+    # turn = Turn.new   #(code.secret_code)
+    timer = Timer.new #(start_time)
+    timer.start_time
     code = Code.new(4, "Red", "Blue", "Green", "Yellow")
     code.make_secret_code
+    turn = Turn.new(code.secret_code)
+    # require "pry"; binding.pry
     puts "I have generated a beginner sequence with four elements made up of:"
     puts "(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
     puts ""
-    puts "What's your guess?"
-    print "<<>>  "
+    turn.get_guess
+    # puts "What's your guess?"
+    # print "<<>>  "
 
-    guess_input = gets.chomp
+    # @pre_play_input = gets.chomp
 
     puts ""
-    quit if guess_input == "q"
-    end_game if guess_input == code.secret_code
-    turn.valid_input?
-    turn.zero_correct
+    # quit if @pre_play_input == "q"
+    # end_game if @pre_play_input == code.secret_code
+    # turn.valid_input?
+    # turn.turn_look
+    # turn.zero_correct
     turn.check_positions_colors
     turn.show_guess_results
     play
@@ -97,10 +86,6 @@ class Game
     quit_input = gets.chomp
     start if quit_input == "y"
   end
-
-  # def welcome
-  #
-  # end
 
   def start_welcome
     puts "\e[2J\e[f"
