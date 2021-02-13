@@ -1,16 +1,13 @@
 class Timer
-#attr_reader
+  attr_reader :start_time,
+              :end_time
 
-def initialize
-  @run_time = 0
-end
+  def initialize(start_time)  #? end_time)
+    @start_time = Time.now
+    @end_time = Time.now
+  end
 
-def start_time
-  #start timer
-end
-
-def end_time
-  #stop timer
-end
-
+  def total_time
+    (@end_time - @start_time)
+  end
 end

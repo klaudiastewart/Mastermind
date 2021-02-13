@@ -1,19 +1,18 @@
 class Game
   attr_reader :answer,
-              :game_start
+              :secret_code,
+              :run_time
 
-  def initialize (game_start) #(argument)
-    # @argument = argument
-    @answer = []
-    @game_start = game_start
+  def initialize (secret_code = nil)
+    @secret_code = secret_code
+    @run_time = 0
   end
 
   def end_game
-    #STOP run_time
-    p "Congratulations! You guessed the sequence #{answer} in #{turn_counter} over #{end_time}" #break time into seconds
-    #RESET run_time
+    @timer.end_timer
+    p "Congratulations! You guessed the sequence #{answer} in #{turn_counter} over #{@timer.total_time}" #break time into seconds
     p "Do you want to (p)lay again or (q)uit?"
-    game.play_again?
+    play_again?
   end
 
   def generate_solution
@@ -40,9 +39,23 @@ class Game
     p "insert directions here"
   end
 
+  # def go_guess
+  #   turn = Turn.new
+  #   turn.get_guess
+  # end
+
   def play
+    turn = Turn.new(@secret_code)
     #START run_time
+    @timer.start_time
     turn.get_guess
+    #OR turn.end_game if turn.check_solution
+    turn.end_game if turn.guess_input == @secret_code
+    turn.valid_input?
+    turn.zero_correct
+    turn.check_positions_colors
+    turn.show_guess_results
+    play
   end
 
   def play_again?
@@ -64,8 +77,12 @@ class Game
     start if quit_input == "y"
   end
 
-  def start
-    p "Welcome to MASTERMIND\n"
+  # def welcome
+  #
+  # end
+
+  def start_game
+    p "Welcome to MASTERMIND"
     p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     p ">"
 
