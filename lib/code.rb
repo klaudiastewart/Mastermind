@@ -1,4 +1,6 @@
 class Code
+  attr_reader :length, :color1, :color2, :color3,
+              :color4, :color5, :color6
 
   def initialize(length, color1, color2, color3, color4, color5=nil, color6=nil)
     @length = length
@@ -9,13 +11,13 @@ class Code
     @secret_code = []
   end
 
-  def make_repeating_code(@c1, @c2, @c3, @c4)
+  def make_repeating_code
     (@length).times do
       @secret_code << [@c1, @c2, @c3, @c4].sample
     end
   end
 
-  def make_non_repeating_code(@c1, @c2, @c3, @c4)
+  def make_non_repeating_code
     unigue = [@c1, @c2, @c3, @c4]
     (@length).times do
       @secret_code << unique.shuffle.shift

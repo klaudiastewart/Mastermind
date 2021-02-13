@@ -64,6 +64,8 @@ class Turn
 
   def show_guess_results
     # require "pry"; binding.pry
+    #clear screen
+    p `clear`
     p "#{@guess_input} has #{@pegs_array.count('white').to_s} of the correct elements with #{@pegs_array.count('red').to_s} in the correct positions."
     p "You've taken #{@turn_counter} guess."
   end

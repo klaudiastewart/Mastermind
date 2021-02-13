@@ -4,7 +4,9 @@ require './lib/code'
 
 class TimerTest < Minitest::Test
   def setup
-    code= Code.now(4, red, green, yellow, blue)
+    @code = Code.new(4, "red", "green", "yellow", "blue")
+    @code.make_repeating_code
+    @RBGY = ["R", "B", "G", "Y"]
   end
 
   def test_code_exists
@@ -12,8 +14,7 @@ class TimerTest < Minitest::Test
   end
 
   def test_code_is_RBGY
-
-    assert @code.start_time
+    # assert_equal true, @RBGY.include?(@code.first)
   end
 
   def test_code_length
