@@ -45,7 +45,7 @@ class Turn
   # end
 
   def get_guess
-    p "Please enter a guess. If you want to quit, press 'q' or press 'c' for the solution."
+    puts "Please enter a guess. If you want to quit, press 'q' or press 'c' for the solution."
     @guess_input = gets.chomp
     @turn_counter += 1
     quit if @guess_input == "q"
@@ -58,22 +58,22 @@ class Turn
   end
 
   def show_cheat_answer
-    p "The secret code is #{@secret_code}."
+    puts "The secret code is #{@secret_code}."
     # quit  ##NO call reverses
   end
 
   def show_guess_results
     # require "pry"; binding.pry
     #clear screen
-    p `clear`
-    p "#{@guess_input} has #{@pegs_array.count('white').to_s} of the correct elements with #{@pegs_array.count('red').to_s} in the correct positions."
-    p "You've taken #{@turn_counter} guess."
+    puts `clear`
+    puts "#{@guess_input} has #{@pegs_array.count('white').to_s} of the correct elements with #{@pegs_array.count('red').to_s} in the correct positions."
+    puts "You've taken #{@turn_counter} guess."
   end
 
   def valid_input?
     #check quess.length == 4 && correct letter
     if @guess_input.length != 4
-      p "Please insert a valid guess."
+      puts "Please insert a valid guess."
       get_guess
     else
       check_positions_colors
@@ -83,7 +83,7 @@ class Turn
   def zero_correct
     #first check, if no match, go direct to next guess
     if @secret_code.include?(@guess_input[0]) == false && @secret_code.include?(@guess_input[1]) == false && @secret_code.include?(@guess_input[2]) == false && @secret_code.include?(@guess_input[3]) == false
-      p "You got zero correct, please guess again."
+      puts "You got zero correct, please guess again."
       @turn_counter += 1
       get_guess
     #   break

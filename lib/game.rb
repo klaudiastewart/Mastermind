@@ -10,8 +10,8 @@ class Game
 
   def end_game
     @timer.end_timer
-    p "Congratulations! You guessed the sequence #{answer} in #{turn_counter} over #{@timer.total_time}" #break time into seconds
-    p "Do you want to (p)lay again or (q)uit?"
+    puts "Congratulations! You guessed the sequence #{answer} in #{turn_counter} over #{@timer.total_time}" #break time into seconds
+    puts "Do you want to (p)lay again or (q)uit?"
     play_again?
   end
 
@@ -36,7 +36,7 @@ class Game
   # end
 
   def instructions
-    p "insert directions here"
+    puts "insert directions here"
   end
 
   # def go_guess
@@ -65,14 +65,25 @@ class Game
     elsif replay_input == "q"
       quit
     else
-      p "Please enter (p)lay again or (q)uit"
+      puts "Please enter (p)lay again or (q)uit"
     end
     play_again
   end
 
+  def pre_play
+    puts "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
+    puts "What's your guess?"
+    print "<<>>  "
+
+    user_input = gets.chomp
+
+    quit if user_input == "q"
+    play
+  end
+
   def quit
-    p "You are now exiting the game"
-    p "Do you want to play again? Please enter 'y' for yes and 'n' for no."
+    puts "You are now exiting the game"
+    puts "One last gaem, play again? Please enter 'y' for yes and 'n' for no."
     quit_input = gets.chomp
     start if quit_input == "y"
   end
@@ -82,10 +93,12 @@ class Game
   # end
 
   def start_game
-    p "Welcome to MASTERMIND"
-    p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
-    p ">"
-
+    puts "\e[2J\e[f"
+    puts "   <><><><><><><>  Welcome to MASTERMIND  <><><><><><><><>"
+    puts ""
+    puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
+    print "<<>>  "
+# QUESTION: 
     user_input = gets.chomp
 
     if user_input == "q"
@@ -95,7 +108,7 @@ class Game
     elsif user_input == "p"
       play
     else
-      p "Invalid input."
+      puts "Invalid input."
       start
     end
   end

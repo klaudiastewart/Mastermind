@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/code'
-# require "pry"; binding.pry
 
 class TimerTest < Minitest::Test
   def test_code_exists
@@ -10,9 +9,9 @@ class TimerTest < Minitest::Test
     assert_instance_of Code, code
   end
 
-  def test_4_length_repeating_code
+  def test_it_makes_4_length_4_colors_code
     code = Code.new(4, "red", "blue", "green", "yellow")
-    code.make_repeating_code
+    code.make_secret_code
     @RBGY = ["R", "B", "G", "Y"]
 
     assert_equal true, @RBGY.include?(code.secret_code[0])
@@ -23,26 +22,24 @@ class TimerTest < Minitest::Test
     assert_equal 4, code.length
   end
 
-  def test_5_length_non_repeating_code
-    code = Code.new(5, "red", "blue", "green", "yellow", "orange")
-    code.make_non_repeating_code
+  def test_it_makes_6_length_5_colors_code
+    code = Code.new(6, "red", "blue", "green", "yellow", "orange")
+    code.make_secret_code
     @RBGYO = ["R", "B", "G", "Y", "O"]
 
-    assert_equal 5, code.length
     assert_equal true, @RBGYO.include?(code.secret_code[0])
+    assert_equal true, @RBGYO.include?(code.secret_code[1])
+    assert_equal true, @RBGYO.include?(code.secret_code[2])
+    assert_equal true, @RBGYO.include?(code.secret_code[3])
+    assert_equal true, @RBGYO.include?(code.secret_code[4])
+    assert_equal true, @RBGYO.include?(code.secret_code[5])
 
-    assert_equal true, (code.secret_code[0] != code.secret_code[1]) && (code.secret_code[0] != code.secret_code[2]) && (code.secret_code[0] != code.secret_code[3]) && (code.secret_code[0] != code.secret_code[4])
-
-    assert_equal true, (code.secret_code[1] != code.secret_code[2]) && (code.secret_code[1] != code.secret_code[3]) && (code.secret_code[1] != code.secret_code[4])
-
-    assert_equal true, (code.secret_code[2] != code.secret_code[3]) && (code.secret_code[2] != code.secret_code[4])
-
-    assert_equal true, (code.secret_code[3] != code.secret_code[4])
+    assert_equal 6, code.length
   end
 
-  def test_6_length_repeating_code
-    code = Code.new(6, "red", "green", "yellow", "blue", "orange", "violet")
-    code.make_non_repeating_code
+  def test_it_makes_8_length_6_colors_code
+    code = Code.new(8, "red", "green", "yellow", "blue", "orange", "violet")
+    code.make_secret_code
     @RBGYOV = ["R", "B", "G", "Y", "O", "V"]
 
     assert_equal true, @RBGYOV.include?(code.secret_code[0])
@@ -51,7 +48,9 @@ class TimerTest < Minitest::Test
     assert_equal true, @RBGYOV.include?(code.secret_code[3])
     assert_equal true, @RBGYOV.include?(code.secret_code[4])
     assert_equal true, @RBGYOV.include?(code.secret_code[5])
+    assert_equal true, @RBGYOV.include?(code.secret_code[6])
+    assert_equal true, @RBGYOV.include?(code.secret_code[7])
 
-    assert_equal 6, code.length
+    assert_equal 8, code.length
   end
 end

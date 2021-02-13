@@ -9,21 +9,16 @@ class Code
     @c3 = color3[0].upcase
     @c4 = color4[0].upcase
     @c5 = color5[0].upcase if color5.class == String
-    @c6 = color6[0].upcase if color6.class == String  
+    @c6 = color6[0].upcase if color6.class == String
     @secret_code = []
   end
 
-  def make_repeating_code
+  def make_secret_code
     (@length).times do
       @secret_code << [@c1, @c2, @c3, @c4].sample if @length == 4
-      @secret_code << [@c1, @c2, @c3, @c4, @c5].sample if @length == 5
-      @secret_code << [@c1, @c2, @c3, @c4, @c5, @c6].sample if @length == 6
+      @secret_code << [@c1, @c2, @c3, @c4, @c5].sample if @length == 6
+      @secret_code << [@c1, @c2, @c3, @c4, @c5, @c6].sample if @length == 8
     end
   end
 
-  def make_non_repeating_code
-      @secret_code = [@c1, @c2, @c3, @c4].shuffle if @length == 4
-      @secret_code = [@c1, @c2, @c3, @c4, @c5].shuffle if @length == 5
-      @secret_code = [@c1, @c2, @c3, @c4, @c5, @c6].shuffle if @length == 6
-  end
 end
