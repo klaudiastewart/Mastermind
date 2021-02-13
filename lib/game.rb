@@ -45,12 +45,12 @@ class Game
   # end
 
   def play
-    turn = Turn.new(@secret_code)
-    #START run_time
-    @timer.start_time
+    turn = Turn.new   #(code.secret_code)
+    timer = Timer.new #(start_time)
+    timer.start_time
     turn.get_guess
     #OR turn.end_game if turn.check_solution
-    turn.end_game if turn.guess_input == @secret_code
+    end_game if turn.guess_input == code.secret_code
     turn.valid_input?
     turn.zero_correct
     turn.check_positions_colors
@@ -67,23 +67,30 @@ class Game
     else
       puts "Please enter (p)lay again or (q)uit"
     end
-    play_again
+    start_welcome
   end
 
   def pre_play
+    code = Code.new(4, "Red", "Blue", "Green", "Yellow")
+    code.make_secret_code
     puts "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
     puts "What's your guess?"
     print "<<>>  "
 
-    user_input = gets.chomp
+    guess_input = gets.chomp
 
-    quit if user_input == "q"
+    quit if guess_input == "q"
+    end_game if guess_input == code.secret_code
+    turn.valid_input?
+    turn.zero_correct
+    turn.check_positions_colors
+    turn.show_guess_results
     play
   end
 
   def quit
     puts "You are now exiting the game"
-    puts "One last gaem, play again? Please enter 'y' for yes and 'n' for no."
+    puts "One last gaem, play again? Please enter (y)es and (n)o."
     quit_input = gets.chomp
     start if quit_input == "y"
   end
@@ -92,13 +99,13 @@ class Game
   #
   # end
 
-  def start_game
+  def start_welcome
     puts "\e[2J\e[f"
     puts "   <><><><><><><>  Welcome to MASTERMIND  <><><><><><><><>"
     puts ""
     puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     print "<<>>  "
-# QUESTION: 
+
     user_input = gets.chomp
 
     if user_input == "q"
@@ -106,7 +113,7 @@ class Game
     elsif user_input == "i"
       instructions
     elsif user_input == "p"
-      play
+      pre_play
     else
       puts "Invalid input."
       start

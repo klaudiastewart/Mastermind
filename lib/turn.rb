@@ -2,8 +2,8 @@
 class Turn
   attr_reader :board, :turn_counter, :pegs_array, :guess_input
 
-  def initialize(secret_code)
-    @secret_code = secret_code
+  def initialize  #(secret_code)
+    # @secret_code = secret_code
     @turn_counter = 0
     @pegs_array = []
   end
@@ -65,7 +65,6 @@ class Turn
   def show_guess_results
     # require "pry"; binding.pry
     #clear screen
-    puts `clear`
     puts "#{@guess_input} has #{@pegs_array.count('white').to_s} of the correct elements with #{@pegs_array.count('red').to_s} in the correct positions."
     puts "You've taken #{@turn_counter} guess."
   end

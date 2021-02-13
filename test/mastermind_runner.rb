@@ -8,7 +8,8 @@ require './lib/turn'
 # turn = Turn.new #(board)
 # timer = Timer.new #(board)
 
-secret_code = Code.new(4, "Red", "Blue", "Green", "Yellow")
+# code = Code.new(4, "Red", "Blue", "Green", "Yellow")
+# code.make_secret_code
 
-game = Game.new(secret_code)
-game.start_game
+game = Game.new #(code)
+game.start_welcome
