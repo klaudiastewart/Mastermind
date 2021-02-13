@@ -13,8 +13,11 @@ class TimerTest < Minitest::Test
     assert_instance_of Code, @code
   end
 
-  def test_code_is_RBGY
-    # assert_equal true, @RBGY.include?(@code.first)
+  def test_code_is_either_RBGY
+    assert_equal true, ["R", "B", "G", "Y"].include?(@code.secret_code[0])
+    assert_equal true, @RBGY.include?(@code.secret_code[1])
+    assert_equal true, @RBGY.include?(@code.secret_code[2])
+    assert_equal true, @RBGY.include?(@code.secret_code[3])
   end
 
   def test_code_length
