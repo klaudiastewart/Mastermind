@@ -8,8 +8,8 @@ class Code
     @c2 = color2[0].upcase
     @c3 = color3[0].upcase
     @c4 = color4[0].upcase
-    @c5 = color4[0].upcase
-    @c6 = color4[0].upcase
+    @c5 = color5[0].upcase if color5.class == String
+    @c6 = color6[0].upcase if color6.class == String  
     @secret_code = []
   end
 
@@ -22,11 +22,8 @@ class Code
   end
 
   def make_non_repeating_code
-    unigue = [@c1, @c2, @c3, @c4] if @length == 4
-    unigue = [@c1, @c2, @c3, @c4, @c5] if @length == 5
-    unigue = [@c1, @c2, @c3, @c4, @c5, @c6] if @length == 6
-    (@length).times do
-      @secret_code << unique.shuffle.shift
-    end
+      @secret_code = [@c1, @c2, @c3, @c4].shuffle if @length == 4
+      @secret_code = [@c1, @c2, @c3, @c4, @c5].shuffle if @length == 5
+      @secret_code = [@c1, @c2, @c3, @c4, @c5, @c6].shuffle if @length == 6
   end
 end
