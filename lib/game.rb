@@ -73,12 +73,15 @@ class Game
   def pre_play
     code = Code.new(4, "Red", "Blue", "Green", "Yellow")
     code.make_secret_code
-    puts "I have generated a beginner sequence with four elements made up of: (r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
+    puts "I have generated a beginner sequence with four elements made up of:"
+    puts "(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
+    puts ""
     puts "What's your guess?"
     print "<<>>  "
 
     guess_input = gets.chomp
 
+    puts ""
     quit if guess_input == "q"
     end_game if guess_input == code.secret_code
     turn.valid_input?
@@ -108,6 +111,9 @@ class Game
 
     user_input = gets.chomp
 
+    puts ""
+    puts ""
+    puts ""
     if user_input == "q"
       quit
     elsif user_input == "i"
