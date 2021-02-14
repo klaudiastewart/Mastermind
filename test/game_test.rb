@@ -32,15 +32,7 @@ class GameTest < Minitest::Test
   end
 
   def test_game_reads_total_time
-    # skip
-    # refute_equal 0, @game.run_time
+    @timer = Timer.new
+    refute_equal !0, @timer.total_time
   end
-
-
-  def test_
-    # skip
-    # assert_equal 0, @game.turn_counter
-  end
-
-
 end

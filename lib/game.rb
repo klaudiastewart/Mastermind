@@ -9,7 +9,7 @@ class Game
   end
 
   def end_game
-    puts "Congratulations! You guessed the sequence #{@code.secret_code} in #{@turn_counter} guess(es) over " + @timer1.total_time
+    puts "Congratulations! You guessed the sequence #{@code.secret_code} in #{@turn_counter} guess(es) over " + @timer.total_time
     play_again?
   end
 
@@ -38,7 +38,6 @@ class Game
     turn = Turn.new(@code.secret_code)
     @turn_counter += 1
     turn.get_guess
-    # qutt if @turn.guess_input == "Q"
     end_game if turn.guess_input == @code.secret_code
     turn.check_positions_colors
     turn.show_guess_results
@@ -56,11 +55,11 @@ class Game
   end
 
   def pre_play
-    @timer1 = Timer.new
-    @timer1.start_time
+    @timer = Timer.new
+    @timer.start_time
     @code = Code.new(4, "Red", "Blue", "Green", "Yellow")
     @code.make_secret_code
-    require "pry"; binding.pry
+    # require "pry"; binding.pry
     puts "I have generated a beginner sequence with four elements made up of:"
     puts "(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\n"
   end
@@ -72,9 +71,18 @@ class Game
 
   def start_welcome
     puts "\e[2J\e[f"
-    puts "   <><><><><><><>  Welcome to MASTERMIND  <><><><><><><><>\n\n"
-    puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
+    puts "                  <><><><><><><>  Welcome to  <><><><><><><><>\n\n"
+    puts "███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗ "
+    puts "████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗"
+    puts "██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║██║  ██║"
+    puts "██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██║  ██║"
+    puts "██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██████╔╝"
+    puts "╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝ \n\n\n\n"
+
+
+    puts "          Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     print "<<>>  "
+    puts ""
 
     user_input = gets.chomp
 

@@ -1,10 +1,11 @@
 
 class Turn
-  attr_reader :guess_input
+  attr_reader :guess_input, :counter, :pegs_array
 
   def initialize(secret_code)
     @secret_code = secret_code
-    @counter = 0
+    @counter = 0 
+    @pegs_array = []
   end
 
   def check_positions_colors
@@ -47,11 +48,12 @@ class Turn
   end
 
   def get_guess
-    puts "Please enter a guess. If you want to quit, press 'q' or press 'c' for the solution."
+    puts "Please enter a guess (4 letters). If you want to quit, press 'q' or press 'c' for the solution."
     @guess_input = gets.chomp.upcase
     @counter += 1
+    puts "Invalid input, please enter a four letter string." if @guess_input.class != String || @guess_input.length != 4
     if @guess_input == "Q"
-      puts "You are now leaving the game...LOSER!!!"
+      puts "You are now leaving the game..."
       exit
     end
     show_cheat_answer if @guess_input == "C"
