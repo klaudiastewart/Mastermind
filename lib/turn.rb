@@ -42,21 +42,12 @@ class Turn
     end
   end
 
-  # def check_solution    ##MOVED TO GAME.rb
-  #   @guess_input == @secret_code
-  # end
-
   def get_guess
     puts "Please enter a guess. If you want to quit, press 'q' or press 'c' for the solution."
-    @guess_input = gets.chomp
+    @guess_input = gets.chomp.upcase
     @counter += 1
-    quit if @guess_input == "q"
+    # quit if @guess_input == "q"
     show_cheat_answer if @guess_input == "c"
-    # game.generate_solution    ##MOVED TO GAME.rb
-    # check_solution
-    # valid_input?
-    # zero_correct
-    # check_positions_colors
   end
 
   def show_cheat_answer
@@ -71,30 +62,9 @@ class Turn
     puts "You've taken #{@counter} guess."
   end
 
-  # def valid_input?
-  #   #check quess.length == 4 && correct letter
-  #   # if @game.pre_play_input.length != 4
-  #   #   puts "Please insert a valid guess."
-  #   #   get_guess
-  #   elsif @guess_input.length != 4
-  #     puts "Please insert a valid guess."
-  #     get_guess
-  #   else
-  #     check_positions_colors
-  #   end
-  # end
   def turn_look
     p "hi"
     # require "pry"; binding.pry
   end
 
-  def zero_correct
-    #first check, if no match, go direct to next guess
-    if game.pre_play.secret_code.include?(@guess_input[0]) == false && game.pre_play.secret_code.include?(@guess_input[1]) == false && game.pre_play.secret_code.include?(@guess_input[2]) == false && game.pre_play.secret_code.include?(@guess_input[3]) == false
-      puts "You got zero correct, please guess again."
-      @turn_counter += 1
-      get_guess
-    #   break
-    end
-  end
 end
