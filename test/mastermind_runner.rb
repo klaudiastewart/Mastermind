@@ -1,5 +1,3 @@
-require 'minitest/autorun'
-require 'minitest/pride'
 require './lib/code'
 require './lib/game'
 require './lib/timer'
