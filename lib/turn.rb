@@ -14,19 +14,19 @@ class Turn
     @pegs_array = []  #reset
     if @secret_code[0] == @guess_input[0]
       @pegs_array << "red"
-      @pegs_array << "white"
+      # @pegs_array << "white"
     end
     if @secret_code[1] == @guess_input[1]
       @pegs_array << "red"
-      @pegs_array << "white"
+      # @pegs_array << "white"
     end
     if @secret_code[2] == @guess_input[2]
       @pegs_array << "red"
-      @pegs_array << "white"
+      # @pegs_array << "white"
     end
     if @secret_code[3] == @guess_input[3]
       @pegs_array << "red"
-      @pegs_array << "white"
+      # @pegs_array << "white"
     end
     if @secret_code[0] == @guess_input[1] || @secret_code[0] == @guess_input[2] || @secret_code[0] == @guess_input[3]
       @pegs_array << "white"
@@ -46,13 +46,16 @@ class Turn
     puts "Please enter a guess. If you want to quit, press 'q' or press 'c' for the solution."
     @guess_input = gets.chomp.upcase
     @counter += 1
-    # quit if @guess_input == "q"
-    show_cheat_answer if @guess_input == "c"
+    if @guess_input == "Q"
+      puts "You are now leaving the game...LOSER!!!"
+      exit
+    end
+    show_cheat_answer if @guess_input == "C"
   end
 
   def show_cheat_answer
-    puts "The secret code is #{@secret_code}."
-    # quit  ##NO call reverses
+    puts "The secret code was #{@secret_code}. You are now leaving the game..."
+    exit
   end
 
   def show_guess_results

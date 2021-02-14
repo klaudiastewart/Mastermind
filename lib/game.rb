@@ -20,15 +20,15 @@ class Game
     time_in_sec = run_time - (time_in_min * 60)
     # require "pry"; binding.pry
     puts "Congratulations! You guessed the sequence #{@turn.guess_input} in #{@turn_counter} guess(es) over #{time_in_min} minutes, #{time_in_sec} seconds."
-    puts "Please enter (p)lay again or (q)uit"
-    # play_again?
-    replay_input = gets.chomp
-    if replay_input == "p"
-      start_welcome
-    elsif replay_input == "q"
-      quit
-    # else
-    end
+    # puts "Please enter (p)lay again or (q)uit"
+    play_again?
+    # replay_input = gets.chomp
+    # if replay_input == "p"
+    #   start_welcome
+    # elsif replay_input == "q"
+    #   quit
+    # # else
+    # end
   end
 
   def instructions
@@ -50,11 +50,14 @@ class Game
   end
 
   def play
+    # require "pry"; binding.pry
     turn = Turn.new(@code.secret_code)
     # require "pry"; binding.pry
 
     @turn_counter += 1
     @turn.get_guess
+    # require "pry"; binding.pry
+    # exit if @turn.get_guess == "Q"
     end_game if @turn.guess_input == @code.secret_code
     # play if @turn.guess_input.class != String && @turn.guess_input.length == 4
     @turn.check_positions_colors
@@ -63,14 +66,13 @@ class Game
   end
 
   def play_again?
-    # replay_input = gets.chomp
-    # if replay_input == "p"
-    #   start_welcome
-    # elsif replay_input == "q"
-    #   quit
-    # # else
-    # end
-    # start_welcome
+    puts "Please enter (p)lay again or (q)uit"
+    replay_input = gets.chomp
+    if replay_input == "p"
+      start_welcome
+    elsif replay_input == "q"
+      quit
+    end
   end
 
   def pre_play
@@ -105,13 +107,8 @@ class Game
   end
 
   def quit
-    puts "You are now exiting the game.  Please press Enter to go to terminal."
-    # quit_input = gets.chomp
-    # puts "One last gaem, play again? Please enter (y)es and (n)o."
-    # start_welcome if quit_input == "y"
-    # abort
-    # exit
-    # puts "Bye"
+    puts "You are now exiting the game. See you again soon."
+    exit
   end
 
   def start_welcome
