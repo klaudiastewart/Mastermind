@@ -4,17 +4,11 @@ class Game
               :run_time,
               :turn_counter
 
-  def initialize #(secret_code = nil)
-    # @secret_code = secret_code
+  def initialize
     @turn_counter = 0
   end
 
   def end_game
-    # @timer2 = Timer.new
-    # run_time = (@timer2.end_time - @timer1.start_time).to_i
-    # time_in_min = run_time / 60
-    # time_in_sec = run_time - (time_in_min * 60)
-    # puts "Congratulations! You guessed the sequence #{@turn.guess_input} in #{@turn_counter} guess(es) over #{time_in_min} minute(s), #{time_in_sec} seconds."
     puts "Congratulations! You guessed the sequence #{@code.secret_code} in #{@turn_counter} guess(es) over " + @timer1.total_time
     play_again?
   end
@@ -62,20 +56,13 @@ class Game
   end
 
   def pre_play
-    @timer1 = Timer.new #(start_time)
+    @timer1 = Timer.new
     @timer1.start_time
     @code = Code.new(4, "Red", "Blue", "Green", "Yellow")
     @code.make_secret_code
-    # @turn = Turn.new(@code.secret_code) #.join)
     require "pry"; binding.pry
     puts "I have generated a beginner sequence with four elements made up of:"
     puts "(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\n"
-    # @turn_counter += 1
-    # @turn.get_guess
-    # @turn.check_positions_colors
-    # end_game if @turn.guess_input == @code.secret_code
-    # @turn.show_guess_results
-    # play
   end
 
   def quit
@@ -92,8 +79,6 @@ class Game
     user_input = gets.chomp
 
     puts "\n\n"
-    # puts ""
-    # puts ""
     if user_input == "q"
       quit
     elsif user_input == "i"
