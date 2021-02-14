@@ -20,9 +20,11 @@ class TimerTest < Minitest::Test
     assert @timer.end_time
   end
 
-  def test_total_time_of_game
+  def test_change_in_time
     # skip
-    @timer.end_time
-    refute_equal !0, @timer.total_time
+    stop_timer= Timer.new
+    @timer.start_time
+    stop_timer.end_time
+    refute_equal !0, (@timer.start_time - stop_timer.end_time)
   end
 end

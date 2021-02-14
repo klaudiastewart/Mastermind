@@ -10,23 +10,18 @@ class Turn
   end
 
   def check_positions_colors
-    # require "pry"; binding.pry
     @pegs_array = []  #reset
     if @secret_code[0] == @guess_input[0]
       @pegs_array << "red"
-      # @pegs_array << "white"
     end
     if @secret_code[1] == @guess_input[1]
       @pegs_array << "red"
-      # @pegs_array << "white"
     end
     if @secret_code[2] == @guess_input[2]
       @pegs_array << "red"
-      # @pegs_array << "white"
     end
     if @secret_code[3] == @guess_input[3]
       @pegs_array << "red"
-      # @pegs_array << "white"
     end
     if @secret_code[0] == @guess_input[1] || @secret_code[0] == @guess_input[2] || @secret_code[0] == @guess_input[3]
       @pegs_array << "white"

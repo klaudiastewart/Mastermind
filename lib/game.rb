@@ -1,15 +1,10 @@
 class Game
   attr_reader :answer,
-              :secret_code,
-              :run_time,
-              :pre_play_input
+              :secret_code
 
   def initialize (secret_code = nil)
     @secret_code = secret_code
-    @run_time = 0
-    @pre_play_input = pre_play_input
     @turn_counter = 0
-    @timer = Timer.new #(start_time)
   end
 
   def end_game
@@ -18,17 +13,8 @@ class Game
     run_time = (@timer2.end_time - @timer1.start_time).to_i
     time_in_min = run_time / 60
     time_in_sec = run_time - (time_in_min * 60)
-    # require "pry"; binding.pry
-    puts "Congratulations! You guessed the sequence #{@turn.guess_input} in #{@turn_counter} guess(es) over #{time_in_min} minutes, #{time_in_sec} seconds."
-    # puts "Please enter (p)lay again or (q)uit"
+    puts "Congratulations! You guessed the sequence #{@turn.guess_input} in #{@turn_counter} guess(es) over #{time_in_min} minute(s), #{time_in_sec} seconds."
     play_again?
-    # replay_input = gets.chomp
-    # if replay_input == "p"
-    #   start_welcome
-    # elsif replay_input == "q"
-    #   quit
-    # # else
-    # end
   end
 
   def instructions
@@ -52,14 +38,10 @@ class Game
   def play
     # require "pry"; binding.pry
     turn = Turn.new(@code.secret_code)
-    # require "pry"; binding.pry
-
     @turn_counter += 1
     @turn.get_guess
-    # require "pry"; binding.pry
-    # exit if @turn.get_guess == "Q"
+    # qutt if @turn.guess_input == "Q"
     end_game if @turn.guess_input == @code.secret_code
-    # play if @turn.guess_input.class != String && @turn.guess_input.length == 4
     @turn.check_positions_colors
     @turn.show_guess_results
     play
@@ -88,19 +70,7 @@ class Game
     puts ""
     @turn_counter += 1
     @turn.get_guess
-    # puts "What's your guess?"
-    # print "<<>>  "
-
-    # @pre_play_input = gets.chomp
-
-    # puts ""
-    # quit if @pre_play_input == "q"
-    # end_game if @pre_play_input == @code.secret_code
-    # turn.valid_input?
-    # turn.turn_look
-    # turn.zero_correct
     @turn.check_positions_colors
-    # require "pry"; bindexiting.pry
     end_game if @turn.guess_input == @code.secret_code
     @turn.show_guess_results
     play
