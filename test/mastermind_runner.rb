@@ -8,4 +8,4 @@ require './lib/turn'
 
 
 game = Game.new
-game.start_game
+game.start_welcome

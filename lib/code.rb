@@ -9,8 +9,8 @@ class Code
     @c2 = hues[1][0].upcase
     @c3 = hues[2][0].upcase
     @c4 = hues[3][0].upcase
-    @c5 = hues[4][0].upcase   # if color5.class == String
-    @c6 = hues[5][0].upcase   # if color6.class == String
+    @c5 = hues[4][0].upcase   if hues.count == 5
+    @c6 = hues[5][0].upcase   if hues.count == 6
     @secret_code = []
   end
 

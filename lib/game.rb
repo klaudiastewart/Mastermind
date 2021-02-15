@@ -9,9 +9,9 @@ class Game
   def initialize (secret_code = nil)
     @secret_code = secret_code
     @turn_counter = 0
-    @difficulty_input = difficulty_input
-    @length = length
-    @hues = hues
+    # @difficulty_input = difficulty_input
+    # @length = length
+    # @hues = hues
   end
 
   def end_game
@@ -70,11 +70,11 @@ class Game
     @difficulty_input = gets.chomp
     puts "\n\n"
 
-    if difficulty_input.upcase == "B"
+    if @difficulty_input.upcase == "B"
       @length = 4 ; @hues = ["Red", "Blue", "Green", "Yellow"]
-    elsif difficulty_input.upcase == "I"
+    elsif @difficulty_input.upcase == "I"
       @length = 6 ; @hues = ["Red", "Blue", "Green", "Yellow", "Orange"]
-    elsif difficulty_input.upcase == "A"
+    elsif @difficulty_input.upcase == "A"
       @length = 8 ; @hues = ["Red", "Blue", "Green", "Yellow", "Orange", "Violet"]
     else
       puts "Invalid input.  Please enter (B)eginner, (I)ntermediate, (A)davanced"
@@ -83,13 +83,14 @@ class Game
   end
 
   def pre_play
-    @timer = Timer.new #(start_time)
+    @timer = Timer.new #(start_time)  BVVGYGBG
     @timer.start_time
     @code = Code.new(@length, @hues)
     @code.make_secret_code
     @turn = Turn.new(@code.secret_code) #.join)
     require "pry"; binding.pry
-    puts Rainbow("I have generated a beginner sequence with four elements made up of:").lightskyblue
+
+    puts Rainbow("I have generated a '#{@difficulty_input.upcase}' level sequence with #{@length} elements made up of:").lightskyblue
     puts Rainbow("(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\n").lightskyblue
   end
 
