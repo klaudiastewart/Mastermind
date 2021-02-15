@@ -1,3 +1,5 @@
+require 'rainbow'
+
 class Game
   attr_reader :answer,
               :secret_code,
@@ -10,13 +12,14 @@ class Game
   end
 
   def end_game
-    puts "Congratulations! You guessed the sequence #{@code.secret_code} in #{@turn_counter} guess(es) over " + @timer.total_time
+    print Rainbow("CONGRATUALATIONS!  ").mediumaquamarine.blink.bold
+    puts Rainbow("You guessed the sequence #{@code.secret_code} in #{@turn_counter} guess(es) over " + @timer.total_time).mediumaquamarine.bold
     play_again?
   end
 
   def instructions
-    puts <<-INSTRUCTIONS
-    INSTRUCTIONS:  How to Play Mastermind
+    puts Rainbow("INSTRUCTIONS:  How to Play Mastermind").silver.blink.bold
+    puts Rainbow(<<-The).lightskyblue
 
     The computer makes a secret pattern of four color code pegs. Duplicates colors are allowed (no blank or empty peg holes).
 
@@ -27,7 +30,7 @@ class Game
     Once feedback is provided, another guess is made; guesses and feedback continue to alternate until either the player guesses correctly, or concedes by calling to see the secret code [press (c)] or quits [press (q)].  Have fun!
 
     Press Enter to Continue
-    INSTRUCTIONS
+    The
 
     instructions_input = gets.chomp
 
@@ -47,7 +50,7 @@ class Game
   end
 
   def play_again?
-    puts "Please enter (p)lay again or (q)uit"
+    puts Rainbow("Please enter (p)lay again or (q)uit").orange.bold
     replay_input = gets.chomp
     if replay_input == "p"
       start_welcome
@@ -64,29 +67,28 @@ class Game
     @code.make_secret_code
     @turn = Turn.new(@code.secret_code) #.join)
     require "pry"; binding.pry
-    puts "I have generated a beginner sequence with four elements made up of:"
-    puts "(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\n"
+    puts Rainbow("I have generated a beginner sequence with four elements made up of:").lightskyblue
+    puts Rainbow("(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\n").lightskyblue
   end
 
   def quit
-    puts "You are now exiting the game. See you again soon."
+    puts Rainbow("You are now exiting the game. See you again soon.\n\n\n\n\n\n\n\n").orange.blink.bold
     exit
   end
 
   def start_welcome
     puts "\e[2J\e[f"
-    puts "                  <><><><><><><>  Welcome to  <><><><><><><><>\n\n"
-    puts "███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗ "
-    puts "████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗"
-    puts "██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║██║  ██║"
-    puts "██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██║  ██║"
-    puts "██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██████╔╝"
-    puts "╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝ \n\n\n\n"
+    puts Rainbow("                 <><><><><><><>  Welcome to  <><><><><><><><>\n\n").lightskyblue.bold
+    puts Rainbow("███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗ ").cyan.blink
+    puts Rainbow("████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗").white.blink
+    puts Rainbow("██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║██║  ██║").cyan.blink
+    puts Rainbow("██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██║  ██║").white.blink
+    puts Rainbow("██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██████╔╝").cyan.blink
+    puts Rainbow("╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝ \n\n\n\n").white.blink
 
 
-    puts "          Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
-    print "<<>>  "
-    puts ""
+    puts Rainbow("          Would you like to (p)lay, read the (i)nstructions, or (q)uit?").lightskyblue.bold
+    print Rainbow("<<>>  ").lightskyblue.bold
 
     user_input = gets.chomp
 
