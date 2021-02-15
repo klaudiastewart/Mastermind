@@ -1,10 +1,11 @@
 class Game
   attr_reader :answer,
-              :code,
+              :secret_code,
               :run_time,
               :turn_counter
 
-  def initialize
+  def initialize (secret_code = nil)
+    @secret_code = secret_code
     @turn_counter = 0
   end
 
@@ -37,10 +38,11 @@ class Game
     # require "pry"; binding.pry
     turn = Turn.new(@code.secret_code)
     @turn_counter += 1
-    turn.get_guess
-    end_game if turn.guess_input == @code.secret_code
-    turn.check_positions_colors
-    turn.show_guess_results
+    @turn.get_guess
+    # qutt if @turn.guess_input == "Q"
+    end_game if @turn.guess_input == @code.secret_code
+    @turn.check_positions_colors
+    @turn.show_guess_results
     play
   end
 
@@ -55,13 +57,15 @@ class Game
   end
 
   def pre_play
-    @timer = Timer.new
+    # turn = Turn.new   #(@code.secret_code)
+    @timer = Timer.new #(start_time)
     @timer.start_time
     @code = Code.new(4, "Red", "Blue", "Green", "Yellow")
     @code.make_secret_code
-    # require "pry"; binding.pry
+    @turn = Turn.new(@code.secret_code) #.join)
+    require "pry"; binding.pry
     puts "I have generated a beginner sequence with four elements made up of:"
-    puts "(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\n"
+    puts "(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
   end
 
   def quit

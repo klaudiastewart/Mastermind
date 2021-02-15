@@ -1,6 +1,6 @@
 class Code
-  attr_reader :length
-  attr_accessor :secret_code
+  attr_reader :length, :color1, :color2, :color3,
+              :color4, :color5, :color6, :secret_code
 
   def initialize(length, color1, color2, color3, color4, color5=nil, color6=nil)
     @length = length

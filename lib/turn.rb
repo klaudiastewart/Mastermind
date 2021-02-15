@@ -1,10 +1,9 @@
-
 class Turn
   attr_reader :guess_input, :counter, :pegs_array
 
   def initialize(secret_code)
     @secret_code = secret_code
-    @counter = 0 
+    @counter = 0
     @pegs_array = []
   end
 
