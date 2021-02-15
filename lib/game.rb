@@ -65,7 +65,7 @@ class Game
     @turn = Turn.new(@code.secret_code) #.join)
     require "pry"; binding.pry
     puts "I have generated a beginner sequence with four elements made up of:"
-    puts "(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game."
+    puts "(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\n"
   end
 
   def quit

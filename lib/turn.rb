@@ -5,6 +5,7 @@ class Turn
     @secret_code = secret_code
     @counter = 0
     @pegs_array = []
+    @results_array = [] #NEW
   end
 
   def check_positions_colors
@@ -26,24 +27,12 @@ class Turn
     #   @secret_code[0] == @guess_input[1] || @secret_code[0] == @guess_input[2] || @secret_code[0] == @guess_input[3]
     # end
     #
-    # @white = (0..3).count do |index1|
-    #   (0..3).any? do |index2|
-    #     @secret_code[index1] == @guess_input[index2] && index1 != index2
-    #   end
-    # end
+    @white = (0..3).count do |index1|
+      (0..3).any? do |index2|
+        @secret_code[index1] == @guess_input[index2] && index1 != index2
+      end
+    end
 
-    if @secret_code[0] == @guess_input[1] || @secret_code[0] == @guess_input[2] || @secret_code[0] == @guess_input[3]
-      @pegs_array << "white"
-    end
-    if @secret_code[1] == @guess_input[0] || @secret_code[1] == @guess_input[2] || @secret_code[1] == @guess_input[3]
-      @pegs_array << "white"
-    end
-    if @secret_code[2] == @guess_input[0] || @secret_code[2] == @guess_input[1] || @secret_code[2] == @guess_input[3]
-      @pegs_array << "white"
-    end
-    if @secret_code[3] == @guess_input[0] || @secret_code[3] == @guess_input[1] || @secret_code[3] == @guess_input[2]
-      @pegs_array << "white"
-    end
   end
 
   def get_guess
@@ -51,6 +40,7 @@ class Turn
     @guess_input = gets.chomp.upcase
     @counter += 1
     puts "Invalid input, please enter a four letter string." if @guess_input.class != String || @guess_input.length != 4
+    puts "\n\n"
     if @guess_input == "Q"
       puts "You are now leaving the game..."
       exit
@@ -64,8 +54,15 @@ class Turn
   end
 
   def show_guess_results
+    puts "\e[2J\e[f"
+    puts "      <><><><>   MASTERMIND   <><><><>\n"
+    @results_array.each do |result|
+      puts result
+    end
+    puts ""
     puts "#{@guess_input} has #{@pegs_array.count('white')} of the correct elements with #{@pegs_array.count('red')} in the correct positions."
-    puts "You've taken #{@counter} guess."
+    puts " ==> You've taken #{@counter} guess(es).\n\n"
+    @results_array << "__ TURN ##{@counter}: Guess '#{guess_input}' had *#{@pegs_array.count('white')} Elements & *#{@pegs_array.count('red')} Positions correct."
   end
 
 end
