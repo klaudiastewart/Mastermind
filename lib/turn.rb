@@ -30,7 +30,7 @@ class Turn
     #
     @white_count = (0..(@secret_code.length-1)).count do |index1|
       (0..(@secret_code.length-1)).any? do |index2|
-        @secret_code[index1] == @guess_input[index2] && index1 != index2
+        @secret_code[index1] == @guess_input[index2] && index1 != index2 && @secret_code[index1] != @guess_input[index1]
       end
     end
   end
@@ -57,14 +57,14 @@ class Turn
   def show_guess_results
     puts "\e[2J\e[f"
     puts Rainbow("                    <><><><>   MASTERMIND   <><><><>").rebeccapurple.bold.blink
-    puts " ________________________________________________________________________"  #47
+    puts " _______________________________________________________________________"  #47
     @results_array.each do |result|
       puts result
     end
-    puts " |_______________________________________________________________________                    |\n\n"  #47
+    puts " |______________________________________________________________________                    |\n\n"  #47
     # puts Rainbow("#{@guess_input} has #{@pegs_array.count('white')} of the correct elements with #{@pegs_array.count('red')} in the correct positions.").lightskyblue
     puts Rainbow("  TURN ##{@counter}: Guess '#{@guess_input}'' has #{@white_count} of the correct elements with #{@pegs_array.count('red')} in the correct positions.").lightskyblue
-    puts Rainbow("     => You've taken _#{@counter}_ guess(es).\n\n").lightskyblue
+    puts Rainbow("     => You've taken _ #{@counter} _ guess(es).\n\n").lightskyblue
     @results_array << " |  TURN ##{@counter}: Guess '#{guess_input}' had correct -- *#{@white_count} Elements & *#{@pegs_array.count('red')} Positions."
   end
 
