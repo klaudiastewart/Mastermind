@@ -42,7 +42,8 @@ class Game
 
   def play
     # require "pry"; binding.pry
-    turn = Turn.new(@code.secret_code)
+    # guess = get_guess
+    turn = Turn.new(@code.secret_code) # pass guess to turn (move get_guess over to game class)
     @turn_counter += 1
     @turn.get_guess
     # qutt if @turn.guess_input == "Q"

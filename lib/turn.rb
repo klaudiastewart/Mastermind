@@ -10,9 +10,10 @@ class Turn
     @results_array = [] #NEW
     # @white_count = white_count #NEW
   end
+
   def check_positions_colors
     @pegs_array = []  #reset
-    (0..(@secret_code.length-1)).each do |index|
+    (0...@secret_code.length).each do |index|
       @pegs_array << "red" if @secret_code[index] == @guess_input[index]
     end
     # require "pry"; binding.pry
@@ -28,8 +29,8 @@ class Turn
     #   @secret_code[0] == @guess_input[1] || @secret_code[0] == @guess_input[2] || @secret_code[0] == @guess_input[3]
     # end
     #
-    @white_count = (0..(@secret_code.length-1)).count do |index1|
-      (0..(@secret_code.length-1)).any? do |index2|
+    @white_count = (0...@secret_code.length).count do |index1|
+      (0...@secret_code.length).any? do |index2|
         @secret_code[index1] == @guess_input[index2] && index1 != index2 && @secret_code[index1] != @guess_input[index1]
       end
     end
@@ -47,7 +48,6 @@ class Turn
     end
     show_cheat_answer if @guess_input == "C"
     puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != @secret_code.length
-    # show_cheat_answer if @guess_input == "C"
   end
 
   def show_cheat_answer
