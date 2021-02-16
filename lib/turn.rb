@@ -45,8 +45,9 @@ class Turn
       puts Rainbow("You are now leaving the game...\n\n\n\n\n\n\n\n").orange.bold.blink
       exit
     end
-    puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != @secret_code.length
     show_cheat_answer if @guess_input == "C"
+    puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != @secret_code.length
+    # show_cheat_answer if @guess_input == "C"
   end
 
   def show_cheat_answer
@@ -56,16 +57,15 @@ class Turn
 
   def show_guess_results
     puts "\e[2J\e[f"
-    puts Rainbow("                    <><><><>   MASTERMIND   <><><><>").rebeccapurple.bold.blink
-    puts " _______________________________________________________________________"  #47
+    puts Rainbow("                     <><><><>   MASTERMIND   <><><><>").rebeccapurple.bold.blink
+    puts " _______________________________________________________________________\n\n"
     @results_array.each do |result|
       puts result
     end
-    puts " |______________________________________________________________________                    |\n\n"  #47
-    # puts Rainbow("#{@guess_input} has #{@pegs_array.count('white')} of the correct elements with #{@pegs_array.count('red')} in the correct positions.").lightskyblue
+    puts " _______________________________________________________________________\n\n"
     puts Rainbow("  TURN ##{@counter}: Guess '#{@guess_input}'' has #{@white_count} of the correct elements with #{@pegs_array.count('red')} in the correct positions.").lightskyblue
     puts Rainbow("     => You've taken _ #{@counter} _ guess(es).\n\n").lightskyblue
-    @results_array << " |  TURN ##{@counter}: Guess '#{guess_input}' had correct -- *#{@white_count} Elements & *#{@pegs_array.count('red')} Positions."
+    @results_array << "   TURN ##{@counter}: Guess '#{guess_input}' had correct -- *#{@white_count} Elements & *#{@pegs_array.count('red')} Positions."
   end
 
 end

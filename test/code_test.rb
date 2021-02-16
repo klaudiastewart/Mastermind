@@ -4,13 +4,13 @@ require './lib/code'
 
 class TimerTest < Minitest::Test
   def test_code_exists
-    code = Code.new(4, @hues)
+    code = Code.new(4, "red", "blue", "green", "yellow")
+
     assert_instance_of Code, code
   end
 
   def test_it_makes_4_length_4_colors_code
-    @hues = ["red", "blue", "green", "yellow"]
-    code = Code.new(4, @hues)
+    code = Code.new(4, "red", "blue", "green", "yellow")
     code.make_secret_code
     @RBGY = ["R", "B", "G", "Y"]
 
@@ -23,8 +23,7 @@ class TimerTest < Minitest::Test
   end
 
   def test_it_makes_6_length_5_colors_code
-    @hues = ["red", "blue", "green", "yellow", "orange"]
-    code = Code.new(6, @hues)
+    code = Code.new(6, "red", "blue", "green", "yellow", "orange")
     code.make_secret_code
     @RBGYO = ["R", "B", "G", "Y", "O"]
 
@@ -39,8 +38,7 @@ class TimerTest < Minitest::Test
   end
 
   def test_it_makes_8_length_6_colors_code
-    @hues = ["red", "blue", "green", "yellow", "orange", "violet"]
-    code = Code.new(8, @hues)
+    code = Code.new(8, "red", "green", "yellow", "blue", "orange", "violet")
     code.make_secret_code
     @RBGYOV = ["R", "B", "G", "Y", "O", "V"]
 

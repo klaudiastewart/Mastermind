@@ -1,16 +1,15 @@
 class Code
-  attr_reader :length
-  attr_accessor :secret_code
+  attr_reader :length, :color1, :color2, :color3,
+              :color4, :color5, :color6, :secret_code
 
-  # def initialize(length, color1, color2, color3, color4, color5=nil, color6=nil)
-  def initialize(length, colors_used)
+  def initialize(length, color1, color2, color3, color4, color5=nil, color6=nil)
     @length = length
-    @c1 = colors_used[0][0].upcase
-    @c2 = colors_used[1][0].upcase
-    @c3 = colors_used[2][0].upcase
-    @c4 = colors_used[3][0].upcase
-    @c5 = colors_used[4][0].upcase if length == 6
-    @c6 = colors_used[5][0].upcase if length == 8
+    @c1 = color1[0].upcase
+    @c2 = color2[0].upcase
+    @c3 = color3[0].upcase
+    @c4 = color4[0].upcase
+    @c5 = color5[0].upcase if color5.class == String
+    @c6 = color6[0].upcase if color6.class == String
     @secret_code = []
   end
 
@@ -22,5 +21,4 @@ class Code
     end
     @secret_code = @secret_code.join
   end
-
 end
