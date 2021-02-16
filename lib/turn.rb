@@ -1,11 +1,13 @@
 require 'rainbow'
+require 'colorize'
 
 class Turn
-  attr_reader :guess_input, :counter, :pegs_array
+  attr_reader :pegs_array #,:guess_input
 
-  def initialize(secret_code)
+  def initialize(secret_code) #, guess_input)
     @secret_code = secret_code
-    @counter = 0
+    # @guess_input = guess_input
+    # @counter = 0
     @pegs_array = []
     @results_array = [] #NEW
   end
@@ -34,20 +36,17 @@ class Turn
         @secret_code[index1] == @guess_input[index2] && index1 != index2 && @secret_code[index1] != @guess_input[index1]
       end
     end
-
-  def get_guess
-    puts Rainbow("  Please enter a guess (4 letters). If you want to quit, press 'q' or press 'c' for the solution.").lightskyblue.bold
-    print "  "
-    @guess_input = gets.chomp.upcase
-    @counter += 1
-    puts "\n\n"
-    if @guess_input == "Q"
-      puts Rainbow("You are now leaving the game...\n\n\n\n\n\n\n\n").orange.bold.blink
-      exit
-    end
-    show_cheat_answer if @guess_input == "C"
-    puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != @secret_code.length
   end
+
+  # def guess_options(guess_input)
+    # if @guess_input == "Q"
+    #   puts Rainbow("You are now leaving the game...\n\n\n\n\n\n\n\n").orange.bold.blink
+    #   exit
+    # end
+    # show_cheat_answer if @guess_input == "C"
+    # puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != @secret_code.length
+    # end
+  # end
 
   def show_cheat_answer
     puts Rainbow("The secret code was #{@secret_code}. You are now leaving the game...\n\n\n\n\n\n\n\n").cyan.bold.blink

@@ -1,4 +1,5 @@
 require 'rainbow'
+require 'colorize'
 
 class Game
   attr_reader :answer,
@@ -10,6 +11,26 @@ class Game
     @secret_code = secret_code
     @turn_counter = 0
   end
+
+  def choose_difficulty
+    puts "Please enter a difficulty level: (B)eginner _ 4 color-4 slot, (I)ntermediate _ 5 color-6 slot, (A)dvanced _ 6 color-8 slot"
+    print "<<>>  "
+
+    @difficulty_input = gets.chomp.upcase
+    puts "\n\n"
+
+    if @difficulty_input.upcase == "B"
+      @length = 4 ; @colors_used = ["Red", "Blue", "Green", "Yellow"]
+    elsif @difficulty_input.upcase == "I"
+      @length = 6 ; @colors_used = ["Red", "Blue", "Green", "Yellow", "Orange"]
+    elsif @difficulty_input.upcase == "A"
+      @length = 8 ; @colors_used = ["Red", "Blue", "Green", "Yellow", "Orange", "Violet"]
+    else
+      puts "Invalid input.  Please enter (B)eginner, (I)ntermediate, (A)davanced"
+      choose_difficulty
+    end
+  end
+
 
   def end_game
     print Rainbow("CONGRATUALATIONS!  ").mediumaquamarine.blink.bold
@@ -38,13 +59,21 @@ class Game
   end
 
   def play
-    # require "pry"; binding.pry
-    # guess = get_guess
-    turn = Turn.new(@code.secret_code) # pass guess to turn (move get_guess over to game class)
+    puts Rainbow("  Please enter a guess (4 letters). If you want to quit, press 'q' or press 'c' for the solution.").lightskyblue.bold
+    print "  "
+    @guess_input = gets.chomp.upcase
+    puts "\n\n"
+    if @guess_input == "Q"
+      puts Rainbow("You are now leaving the game...\n\n\n\n\n\n\n\n").orange.bold.blink
+      exit
+    end
+    show_cheat_answer if @guess_input == "C"
+    puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != @code.secret_code.length
+    # end
     @turn_counter += 1
-    @turn.get_guess
-    # qutt if @turn.guess_input == "Q"
-    end_game if @turn.guess_input == @code.secret_code
+    @turn = Turn.new(@code.secret_code)
+    # @turn.guess_options
+    end_game if @guess_input == @code.secret_code
     @turn.check_positions_colors
     @turn.show_guess_results
     play
@@ -60,32 +89,12 @@ class Game
     end
   end
 
-
-  def choose_difficulty     ## NEW
-    puts "Please enter a difficulty level: (B)eginner _ 4 color-4 slot, (I)ntermediate _ 5 color-6 slot, (A)dvanced _ 6 color-8 slot"
-    print "<<>>  "
-
-    @difficulty_input = gets.chomp.upcase
-    puts "\n\n"
-
-    if @difficulty_input.upcase == "B"
-      @length = 4 ; @colors_used = ["Red", "Blue", "Green", "Yellow"]
-    elsif @difficulty_input.upcase == "I"
-      @length = 6 ; @colors_used = ["Red", "Blue", "Green", "Yellow", "Orange"]
-    elsif @difficulty_input.upcase == "A"
-      @length = 8 ; @colors_used = ["Red", "Blue", "Green", "Yellow", "Orange", "Violet"]
-    else
-      puts "Invalid input.  Please enter (B)eginner, (I)ntermediate, (A)davanced"
-      choose_difficulty
-    end
-  end
-
   def pre_play
     @timer = Timer.new #(start_time)  GVYGRRG
     @timer.start_time
     @code = Code.new(@length, @colors_used)
     @code.make_secret_code
-    @turn = Turn.new(@code.secret_code) #.join)
+    # @turn = Turn.new(@code.secret_code) #.join)
     require "pry"; binding.pry
 
     puts Rainbow("I have generated a '#{@difficulty_input.upcase}' level sequence or code of #{@length} letters, made from the first letters of these colors:").lightskyblue
@@ -119,7 +128,7 @@ class Game
     elsif user_input == "i"
       instructions
     elsif user_input == "p"
-      choose_difficulty 
+      choose_difficulty
       pre_play
       play
     else
