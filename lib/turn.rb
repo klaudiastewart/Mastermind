@@ -8,7 +8,6 @@ class Turn
     @counter = 0
     @pegs_array = []
     @results_array = [] #NEW
-    # @white_count = white_count #NEW
   end
 
   def check_positions_colors
@@ -29,12 +28,12 @@ class Turn
     #   @secret_code[0] == @guess_input[1] || @secret_code[0] == @guess_input[2] || @secret_code[0] == @guess_input[3]
     # end
     #
+
     @white_count = (0...@secret_code.length).count do |index1|
       (0...@secret_code.length).any? do |index2|
         @secret_code[index1] == @guess_input[index2] && index1 != index2 && @secret_code[index1] != @guess_input[index1]
       end
     end
-  end
 
   def get_guess
     puts Rainbow("  Please enter a guess (4 letters). If you want to quit, press 'q' or press 'c' for the solution.").lightskyblue.bold
@@ -67,5 +66,4 @@ class Turn
     puts Rainbow("     => You've taken _ #{@counter} _ guess(es).\n\n").lightskyblue
     @results_array << "   TURN ##{@counter}: Guess '#{guess_input}' had correct -- *#{@white_count} Elements & *#{@pegs_array.count('red')} Positions."
   end
-
 end

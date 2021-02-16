@@ -9,9 +9,6 @@ class Game
   def initialize (secret_code = nil)
     @secret_code = secret_code
     @turn_counter = 0
-    # @difficulty_input = difficulty_input
-    # @length = length
-    # @hues = hues
   end
 
   def end_game
@@ -122,7 +119,7 @@ class Game
     elsif user_input == "i"
       instructions
     elsif user_input == "p"
-      choose_difficulty     ## NEW  "VBGRVBG"
+      choose_difficulty 
       pre_play
       play
     else
