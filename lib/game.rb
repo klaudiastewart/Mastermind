@@ -34,12 +34,13 @@ class Game
 
     instructions_input = gets.chomp
 
-    start_welcome if instructions_input = ""
+    start_welcome if instructions_input == ""
   end
 
   def play
     # require "pry"; binding.pry
-    turn = Turn.new(@code.secret_code)
+    # guess = get_guess
+    turn = Turn.new(@code.secret_code) # pass guess to turn (move get_guess over to game class)
     @turn_counter += 1
     @turn.get_guess
     # qutt if @turn.guess_input == "Q"
@@ -59,16 +60,36 @@ class Game
     end
   end
 
+
+  def choose_difficulty     ## NEW
+    puts "Please enter a difficulty level: (B)eginner _ 4 color-4 slot, (I)ntermediate _ 5 color-6 slot, (A)dvanced _ 6 color-8 slot"
+    print "<<>>  "
+
+    @difficulty_input = gets.chomp.upcase
+    puts "\n\n"
+
+    if @difficulty_input.upcase == "B"
+      @length = 4 ; @colors_used = ["Red", "Blue", "Green", "Yellow"]
+    elsif @difficulty_input.upcase == "I"
+      @length = 6 ; @colors_used = ["Red", "Blue", "Green", "Yellow", "Orange"]
+    elsif @difficulty_input.upcase == "A"
+      @length = 8 ; @colors_used = ["Red", "Blue", "Green", "Yellow", "Orange", "Violet"]
+    else
+      puts "Invalid input.  Please enter (B)eginner, (I)ntermediate, (A)davanced"
+      choose_difficulty
+    end
+  end
+
   def pre_play
-    # turn = Turn.new   #(@code.secret_code)
-    @timer = Timer.new #(start_time)
+    @timer = Timer.new #(start_time)  GVYGRRG
     @timer.start_time
-    @code = Code.new(4, "Red", "Blue", "Green", "Yellow")
+    @code = Code.new(@length, @colors_used)
     @code.make_secret_code
     @turn = Turn.new(@code.secret_code) #.join)
     require "pry"; binding.pry
-    puts Rainbow("I have generated a beginner sequence with four elements made up of:").lightskyblue
-    puts Rainbow("(r)ed,(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.\n").lightskyblue
+
+    puts Rainbow("I have generated a '#{@difficulty_input.upcase}' level sequence or code of #{@length} letters, made from the first letters of these colors:").lightskyblue
+    puts Rainbow(@colors_used.join(', ') + ". Use (q)uit at any time to end the game.\n").lightskyblue
   end
 
   def quit
@@ -78,17 +99,17 @@ class Game
 
   def start_welcome
     puts "\e[2J\e[f"
-    puts Rainbow("                 <><><><><><><>  Welcome to  <><><><><><><><>\n\n").lightskyblue.bold
-    puts Rainbow("███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗ ").cyan.blink
-    puts Rainbow("████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗").white.blink
-    puts Rainbow("██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║██║  ██║").cyan.blink
-    puts Rainbow("██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██║  ██║").white.blink
-    puts Rainbow("██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██████╔╝").cyan.blink
-    puts Rainbow("╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝ \n\n\n\n").white.blink
+    puts Rainbow("                    <><><><><><><>  Welcome to  <><><><><><><><>\n\n").lightskyblue.bold
+    puts Rainbow("  ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗██████╗ ").cyan.blink
+    puts Rainbow("  ████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗").white.blink
+    puts Rainbow("  ██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║██║  ██║").cyan.blink
+    puts Rainbow("  ██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██║  ██║").white.blink
+    puts Rainbow("  ██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██████╔╝").cyan.blink
+    puts Rainbow("  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═════╝ \n\n\n\n").white.blink
 
 
-    puts Rainbow("          Would you like to (p)lay, read the (i)nstructions, or (q)uit?").lightskyblue.bold
-    print Rainbow("<<>>  ").lightskyblue.bold
+    puts Rainbow("           Would you like to (p)lay, read the (i)nstructions, or (q)uit?").lightskyblue.bold
+    print Rainbow("  <<>>  ").lightskyblue.bold
 
     user_input = gets.chomp
 
@@ -98,10 +119,11 @@ class Game
     elsif user_input == "i"
       instructions
     elsif user_input == "p"
+      choose_difficulty 
       pre_play
       play
     else
-      puts "Invalid input."
+      puts "Invalid input.  Plese enter (i)nstructions or (q)uit"
       start_welcome
     end
   end
