@@ -8,10 +8,11 @@ class Turn
     @counter = 0
     @pegs_array = []
     @results_array = [] #NEW
+    # @white_count = white_count #NEW
   end
   def check_positions_colors
     @pegs_array = []  #reset
-    (0..@secret_code.length).each do |index|
+    (0..(@secret_code.length-1)).each do |index|
       @pegs_array << "red" if @secret_code[index] == @guess_input[index]
     end
     # require "pry"; binding.pry
@@ -27,23 +28,24 @@ class Turn
     #   @secret_code[0] == @guess_input[1] || @secret_code[0] == @guess_input[2] || @secret_code[0] == @guess_input[3]
     # end
     #
-    @white = (0..@secret_code.length).count do |index1|
-      (0..@secret_code.length).any? do |index2|
+    @white_count = (0..(@secret_code.length-1)).count do |index1|
+      (0..(@secret_code.length-1)).any? do |index2|
         @secret_code[index1] == @guess_input[index2] && index1 != index2
       end
     end
   end
 
   def get_guess
-    puts Rainbow("Please enter a guess (4 letters). If you want to quit, press 'q' or press 'c' for the solution.").lightskyblue.bold
+    puts Rainbow("  Please enter a guess (4 letters). If you want to quit, press 'q' or press 'c' for the solution.").lightskyblue.bold
+    print "  "
     @guess_input = gets.chomp.upcase
     @counter += 1
-    puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != 4
     puts "\n\n"
     if @guess_input == "Q"
       puts Rainbow("You are now leaving the game...\n\n\n\n\n\n\n\n").orange.bold.blink
       exit
     end
+    puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != @secret_code.length
     show_cheat_answer if @guess_input == "C"
   end
 
@@ -54,14 +56,16 @@ class Turn
 
   def show_guess_results
     puts "\e[2J\e[f"
-    puts Rainbow("               <><><><>   MASTERMIND   <><><><>\n").rebeccapurple.bold.blink
+    puts Rainbow("                    <><><><>   MASTERMIND   <><><><>").rebeccapurple.bold.blink
+    puts " ________________________________________________________________________"  #47
     @results_array.each do |result|
       puts result
     end
-    puts ""
-    puts Rainbow("#{@guess_input} has #{@pegs_array.count('white')} of the correct elements with #{@pegs_array.count('red')} in the correct positions.").lightskyblue
-    puts Rainbow(" => You've taken #{@counter} guess(es).\n\n").lightskyblue
-    @results_array << " |  TURN ##{@counter}: Guess '#{guess_input}' had *#{@pegs_array.count('white')} Elements & *#{@pegs_array.count('red')} Positions correct.  | "
+    puts " |_______________________________________________________________________                    |\n\n"  #47
+    # puts Rainbow("#{@guess_input} has #{@pegs_array.count('white')} of the correct elements with #{@pegs_array.count('red')} in the correct positions.").lightskyblue
+    puts Rainbow("  TURN ##{@counter}: Guess '#{@guess_input}'' has #{@white_count} of the correct elements with #{@pegs_array.count('red')} in the correct positions.").lightskyblue
+    puts Rainbow("     => You've taken _#{@counter}_ guess(es).\n\n").lightskyblue
+    @results_array << " |  TURN ##{@counter}: Guess '#{guess_input}' had correct -- *#{@white_count} Elements & *#{@pegs_array.count('red')} Positions."
   end
 
 end

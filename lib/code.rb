@@ -3,14 +3,14 @@ class Code
   attr_accessor :secret_code
 
   # def initialize(length, color1, color2, color3, color4, color5=nil, color6=nil)
-  def initialize(length, hues)
+  def initialize(length, colors_used)
     @length = length
-    @c1 = hues[0][0].upcase
-    @c2 = hues[1][0].upcase
-    @c3 = hues[2][0].upcase
-    @c4 = hues[3][0].upcase
-    @c5 = hues[4][0].upcase   if hues.count == 5
-    @c6 = hues[5][0].upcase   if hues.count == 6
+    @c1 = colors_used[0][0].upcase
+    @c2 = colors_used[1][0].upcase
+    @c3 = colors_used[2][0].upcase
+    @c4 = colors_used[3][0].upcase
+    @c5 = colors_used[4][0].upcase if length == 6
+    @c6 = colors_used[5][0].upcase if length == 8
     @secret_code = []
   end
 
