@@ -5,10 +5,12 @@ class Game
   attr_reader :answer,
               :secret_code,
               :run_time,
-              :turn_counter
+              :turn_counter,
+              :guess_input ## NEW
 
   def initialize (secret_code = nil)
     @secret_code = secret_code
+    @guess_input = guess_input
     @turn_counter = 0
   end
 
@@ -67,15 +69,15 @@ class Game
       puts Rainbow("You are now leaving the game...\n\n\n\n\n\n\n\n").orange.bold.blink
       exit
     end
-    show_cheat_answer if @guess_input == "C"
+    @turn.show_cheat_answer if @guess_input == "C"  ##
     puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != @code.secret_code.length
     # end
     @turn_counter += 1
-    @turn = Turn.new(@code.secret_code)
+    @turn = Turn.new(@code.secret_code, @guess_input)
     # @turn.guess_options
     end_game if @guess_input == @code.secret_code
-    @turn.check_positions_colors
-    @turn.show_guess_results
+    @turn.check_positions_colors(@guess_input)
+    @turn.show_guess_results(@guess_input, @turn_counter)
     play
   end
 

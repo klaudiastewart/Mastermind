@@ -2,17 +2,17 @@ require 'rainbow'
 require 'colorize'
 
 class Turn
-  attr_reader :pegs_array #,:guess_input
+  attr_reader :pegs_array, :results_array
 
-  def initialize(secret_code) #, guess_input)
+  def initialize(secret_code, guess_input)
     @secret_code = secret_code
-    # @guess_input = guess_input
+    @guess_input = guess_input
     # @counter = 0
     @pegs_array = []
-    @results_array = [] #NEW
+    @results_array = []
   end
 
-  def check_positions_colors
+  def check_positions_colors(guess_input)
     @pegs_array = []  #reset
     (0...@secret_code.length).each do |index|
       @pegs_array << "red" if @secret_code[index] == @guess_input[index]
@@ -20,7 +20,7 @@ class Turn
     # require "pry"; binding.pry
     #XX @secret_code.each_char do |char|
     #   (0..3).each do |index|
-    #     if char == @guess_input[index]
+    #     if char == @guess_input[index]Copyright (c) 2018 Copyright Holder All Rights Reserved.
     #       @pegs_array << "white"
     #       break
     #     end
@@ -53,7 +53,7 @@ class Turn
     exit
   end
 
-  def show_guess_results
+  def show_guess_results(guess_input, turn_counter)
     puts "\e[2J\e[f"
     puts Rainbow("                     <><><><>   MASTERMIND   <><><><>").rebeccapurple.bold.blink
     puts " _______________________________________________________________________\n\n"
@@ -61,8 +61,8 @@ class Turn
       puts result
     end
     puts " _______________________________________________________________________\n\n"
-    puts Rainbow("  TURN ##{@counter}: Guess '#{@guess_input}'' has #{@white_count} of the correct elements with #{@pegs_array.count('red')} in the correct positions.").lightskyblue
-    puts Rainbow("     => You've taken _ #{@counter} _ guess(es).\n\n").lightskyblue
-    @results_array << "   TURN ##{@counter}: Guess '#{guess_input}' had correct -- *#{@white_count} Elements & *#{@pegs_array.count('red')} Positions."
+    puts Rainbow("  TURN ##{turn_counter}: Guess '#{@guess_input}'' has #{@white_count} of the correct elements with #{@pegs_array.count('red')} in the correct positions.").lightskyblue
+    puts Rainbow("     => You've taken _ #{turn_counter} _ guess(es).\n\n").lightskyblue
+    @results_array << "   TURN ##{turn_counter}: Guess '#{@guess_input}' had correct -- *#{@white_count} Elements & *#{@pegs_array.count('red')} Positions."
   end
 end
