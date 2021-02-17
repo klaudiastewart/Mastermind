@@ -8,10 +8,11 @@ require './lib/code'
 
 class GameTest < Minitest::Test
   def setup
-    @code = Code.new(4, "Red", "Blue", "Green", "Yellow")
-    @turn = Turn.new(@code)
+
+    @code = Code.new(4, ["Red", "Blue", "Green", "Yellow"])
+    @turn = Turn.new(@code, "RRRB")
     @timer = Timer.new
-    @game = Game.new #(@code)
+    @game = Game.new(@code)
     # @game.start_welcome
   end
 
@@ -22,8 +23,8 @@ class GameTest < Minitest::Test
   def test_secret_code_attributes
     @game.pre_play
 
-    assert_equal String, @game.code.secret_code.class
-    assert_equal 4, @game.code.secret_code.length
+    assert_equal Code, @game.secret_code.class
+    assert_equal 4, @game.secret_code.length
   end
 
   def test_game_turn_counter_starts_at_zero

@@ -21,7 +21,7 @@ class TurnTest < Minitest::Test
     guess_input = "BBBB"
     turn = Turn.new(secret_code, guess_input)
 
-    turn.check_positions_colors(guess_input)
+    turn.check_positions_colors
 
     assert_equal 0, turn.red_count
     assert_equal 0, turn.white_count
@@ -32,7 +32,7 @@ class TurnTest < Minitest::Test
     guess_input = "RBBB"
     turn = Turn.new(secret_code, guess_input)
 
-    turn.check_positions_colors(guess_input)
+    turn.check_positions_colors
 
     assert_equal 1, turn.red_count
   end
@@ -42,7 +42,7 @@ class TurnTest < Minitest::Test
     guess_input = "RRRR"
     turn = Turn.new(secret_code, guess_input)
 
-    turn.check_positions_colors(guess_input)
+    turn.check_positions_colors
 
     assert_equal 4, turn.red_count
   end
@@ -52,7 +52,7 @@ class TurnTest < Minitest::Test
     guess_input = "BBBB"
     turn = Turn.new(secret_code, guess_input)
 
-    turn.check_positions_colors(guess_input)
+    turn.check_positions_colors
 
     assert_equal 0, turn.white_count
   end
@@ -62,7 +62,7 @@ class TurnTest < Minitest::Test
     guess_input = "RBBB"
     turn = Turn.new(secret_code, guess_input)
 
-    turn.check_positions_colors(guess_input)
+    turn.check_positions_colors
 
     assert_equal 1, turn.white_count
   end
@@ -72,7 +72,7 @@ class TurnTest < Minitest::Test
     guess_input = "GBYR"
     turn = Turn.new(secret_code, guess_input)
 
-    turn.check_positions_colors(guess_input)
+    turn.check_positions_colors
 
     assert_equal 4, turn.white_count
   end
@@ -82,7 +82,7 @@ class TurnTest < Minitest::Test
     guess_input = "RBYR"
     turn = Turn.new(secret_code, guess_input)
 
-    turn.check_positions_colors(guess_input)
+    turn.check_positions_colors
 
     assert_equal 2, turn.white_count
     assert_equal 2, turn.red_count
@@ -93,7 +93,7 @@ class TurnTest < Minitest::Test
     guess_input = "RBGY"
     turn = Turn.new(secret_code, guess_input)
 
-    turn.check_positions_colors(guess_input)
+    turn.check_positions_colors
 
     assert_equal 1, turn.red_count
     assert_equal 3, turn.white_count
@@ -104,7 +104,7 @@ class TurnTest < Minitest::Test
     guess_input = "RGYB"
     turn = Turn.new(secret_code, guess_input)
 
-    turn.check_positions_colors(guess_input)
+    turn.check_positions_colors
 
     assert_equal 0, turn.red_count
     assert_equal 3, turn.white_count #game shows 4
@@ -115,7 +115,7 @@ class TurnTest < Minitest::Test
   #   guess_input = "BBBBBB"
   #   turn = Turn.new(secret_code, guess_input)
   #
-  #   turn.check_positions_colors(guess_input)
+  #   turn.check_positions_colors
   #
   #   assert_equal 0, turn.red_count
   #   assert_equal 0. turn.white_count
@@ -126,7 +126,7 @@ class TurnTest < Minitest::Test
   #   guess_input = "RBBB"
   #   turn = Turn.new(secret_code, guess_input)
   #
-  #   turn.check_positions_colors(guess_input)
+  #   turn.check_positions_colors
   #
   #   assert_equal "red", turn.red_count[0]
   # end
@@ -136,7 +136,7 @@ class TurnTest < Minitest::Test
   #   guess_input = "RRRR"
   #   turn = Turn.new(secret_code, guess_input)
   #
-  #   turn.check_positions_colors(guess_input)
+  #   turn.check_positions_colors
   #
   #   assert_equal "red", turn.red_count[0]
   #   assert_equal "red", turn.red_count[1]
@@ -149,7 +149,7 @@ class TurnTest < Minitest::Test
   #   guess_input = "BBBB"
   #   turn = Turn.new(secret_code, guess_input)
   #
-  #   turn.check_positions_colors(guess_input)
+  #   turn.check_positions_colors
   #
   #   assert_equal 0, turn.white_count
   # end
@@ -159,7 +159,7 @@ class TurnTest < Minitest::Test
   #   guess_input = "RBBB"
   #   turn = Turn.new(secret_code, guess_input)
   #
-  #   turn.check_positions_colors(guess_input)
+  #   turn.check_positions_colors
   #
   #   assert_equal 1, turn.white_count
   # end
@@ -169,7 +169,7 @@ class TurnTest < Minitest::Test
   #   guess_input = "GBYR"
   #   turn = Turn.new(secret_code, guess_input)
   #
-  #   turn.check_positions_colors(guess_input)
+  #   turn.check_positions_colors
   #
   #   assert_equal 4, turn.white_count
   # end
@@ -179,7 +179,7 @@ class TurnTest < Minitest::Test
   #   guess_input = "RBYR"
   #   turn = Turn.new(secret_code, guess_input)
   #
-  #   turn.check_positions_colors(guess_input)
+  #   turn.check_positions_colors
   #
   #   assert_equal 2, turn.white_count
   #   assert_equal 2, turn.red_count.size
@@ -190,7 +190,7 @@ class TurnTest < Minitest::Test
   #   guess_input = "RBGY"
   #   turn = Turn.new(secret_code, guess_input)
   #
-  #   turn.check_positions_colors(guess_input)
+  #   turn.check_positions_colors
   #
   #   assert_equal 1, turn.red_count.size
   #   assert_equal 3, turn.white_count

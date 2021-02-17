@@ -13,33 +13,37 @@ class Turn
     @red_count = 0
   end
 
-  def check_positions_colors(guess_input)
+  def check_positions_colors
     @red_count = (0...@secret_code.length).count do |index|
       @secret_code[index] == @guess_input[index]
     end
-    @white_count = (0...@secret_code.length).count do |index1|
-      (0...@secret_code.length).any? do |index2|
-        @secret_code[index1] == @guess_input[index2] && index1 != index2 && @secret_code[index1] != @guess_input[index1]
-      end
-    end
-  end
+    # @white_count = (0...@secret_code.length).count do |index1|
+    #   (0...@secret_code.length).any? do |index2|
+    #     @secret_code[index1] == @guess_input[index2] && index1 != index2 && @secret_code[index1] != @guess_input[index1]
+    #   end
+    # end   ## OLD WAY
 
-  # def guess_options(guess_input)
-    # if @guess_input == "Q"
-    #   puts Rainbow("You are now leaving the game...\n\n\n\n\n\n\n\n").orange.bold.blink
-    #   exit
-    # end
-    # show_cheat_answer if @guess_input == "C"
-    # puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != @secret_code.length
-    # end
-  # end
+    code_colors = Hash.new(0)
+    guess_colors = Hash.new(0)
+    @secret_code.each_char do |color|
+      code_colors[color] += 1
+    end
+    @guess_input.each_char do |color|
+      guess_colors[color] += 1
+    end
+    code_colors.keys.each do |color|
+      @white_count += [code_colors[color], guess_colors[color]].min
+    end
+    # require "pry"; binding.pry
+    @white_count -= @red_count # white_count = white_count - red_count
+  end
 
   def show_cheat_answer
     puts Rainbow("The secret code was #{@secret_code}. You are now leaving the game...\n\n\n\n\n\n\n\n").cyan.bold.blink
     exit
   end
 
-  def show_guess_results(guess_input, turn_counter)
+  def show_guess_results(turn_counter)
     puts "\e[2J\e[f"
     puts Rainbow("                     <><><><>   MASTERMIND   <><><><>").rebeccapurple.bold.blink
     puts " _______________________________________________________________________\n\n"

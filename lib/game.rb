@@ -6,12 +6,14 @@ class Game
               :secret_code,
               :run_time,
               :turn_counter,
-              :guess_input ## NEW
+              :guess_input #?
 
   def initialize (secret_code = nil)
     @secret_code = secret_code
-    @guess_input = guess_input
     @turn_counter = 0
+    @length = 4
+    @colors = ["Red", "Blue", "Green", "Yellow"]
+    @difficulty_input = "B"
   end
 
   def choose_difficulty
@@ -22,11 +24,16 @@ class Game
     puts "\n\n"
 
     if @difficulty_input.upcase == "B"
-      @length = 4 ; @colors_used = ["Red", "Blue", "Green", "Yellow"]
+      @length = 4
+      # @colors = ["Red", "Blue", "Green", "Yellow"]
     elsif @difficulty_input.upcase == "I"
-      @length = 6 ; @colors_used = ["Red", "Blue", "Green", "Yellow", "Orange"]
+      @length = 6
+      # @colors = ["Red", "Blue", "Green", "Yellow", "Orange"]
+      @colors << "Orange"
     elsif @difficulty_input.upcase == "A"
-      @length = 8 ; @colors_used = ["Red", "Blue", "Green", "Yellow", "Orange", "Violet"]
+      @length = 8
+      # @colors = ["Red", "Blue", "Green", "Yellow", "Orange", "Violet"]
+      @colors += ["Orange", "Violet"]
     else
       puts "Invalid input.  Please enter (B)eginner, (I)ntermediate, (A)davanced"
       choose_difficulty
@@ -35,7 +42,7 @@ class Game
 
 
   def end_game
-    print Rainbow("CONGRATUALATIONS!  ").mediumaquamarine.blink.bold
+    print Rainbow("  CONGRATUALATIONS!  ").mediumaquamarine.blink.bold
     puts Rainbow("You guessed the sequence #{@code.secret_code} in #{@turn_counter} guess(es) over " + @timer.total_time).mediumaquamarine.bold
     play_again?
   end
@@ -60,24 +67,30 @@ class Game
     start_welcome if instructions_input == ""
   end
 
-  def play
-    puts Rainbow("  Please enter a guess (4 letters). If you want to quit, press 'q' or press 'c' for the solution.").lightskyblue.bold
+  def get_guess
+    puts Rainbow("  Please enter a guess (#{@length} letters). If you want to quit, press 'q' or press 'c' for the solution.").lightskyblue.bold
     print "  "
-    @guess_input = gets.chomp.upcase
+    guess_input = gets.chomp.upcase
     puts "\n\n"
-    if @guess_input == "Q"
-      puts Rainbow("You are now leaving the game...\n\n\n\n\n\n\n\n").orange.bold.blink
+    if guess_input == "Q"
+      puts Rainbow("  You are now leaving the game...\n\n\n\n\n\n\n\n").orange.bold.blink
       exit
     end
-    @turn.show_cheat_answer if @guess_input == "C"  ##
-    puts Rainbow("Invalid input, please enter the correct number of letter in the string.").papayawhip.bold if @guess_input.class != String || @guess_input.length != @code.secret_code.length
-    # end
+    if guess_input == "C"
+      @turn.show_cheat_answer
+    elsif guess_input.length != @code.secret_code.length
+      puts Rainbow("Invalid input, please enter the correct number of letters in the string.").papayawhip.bold
+    end
+    guess_input  # NEW
+  end
+
+  def play
+    guess_input = get_guess # NEW
     @turn_counter += 1
-    @turn = Turn.new(@code.secret_code, @guess_input)
-    # @turn.guess_options
-    end_game if @guess_input == @code.secret_code
-    @turn.check_positions_colors(@guess_input)
-    @turn.show_guess_results(@guess_input, @turn_counter)
+    @turn = Turn.new(@code.secret_code, guess_input)
+    end_game if guess_input == @code.secret_code
+    @turn.check_positions_colors
+    @turn.show_guess_results(@turn_counter)
     play
   end
 
@@ -92,15 +105,13 @@ class Game
   end
 
   def pre_play
-    @timer = Timer.new #(start_time)  GVYGRRG
+    @timer = Timer.new
     @timer.start_time
-    @code = Code.new(@length, @colors_used)
+    @code = Code.new(@length, @colors)
     @code.make_secret_code
-    # @turn = Turn.new(@code.secret_code) #.join)
-    require "pry"; binding.pry
-
+    # require "pry"; binding.pry
     puts Rainbow("I have generated a '#{@difficulty_input.upcase}' level sequence or code of #{@length} letters, made from the first letters of these colors:").lightskyblue
-    puts Rainbow(@colors_used.join(', ') + ". Use (q)uit at any time to end the game.\n").lightskyblue
+    puts Rainbow(@colors.join(', ') + ". Use (q)uit at any time to end the game.\n").lightskyblue
   end
 
   def quit
