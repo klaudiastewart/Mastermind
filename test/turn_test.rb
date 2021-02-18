@@ -107,7 +107,7 @@ class TurnTest < Minitest::Test
     turn.check_positions_colors
 
     assert_equal 0, turn.red_count
-    assert_equal 3, turn.white_count #game shows 4
+    assert_equal 3, turn.white_count 
   end
 
   def test_for_no_red_or_white_peg_in_six_letter_code

@@ -1,10 +1,8 @@
 require 'rainbow'
-require 'colorize'
 
 class Turn
   attr_reader :red_count, :white_count
-
-  @@results_array = [] #this is a class variable, to call this on another class, Turn.results_array
+  @@results_array = []
 
   def initialize(secret_code, guess_input)
     @secret_code = secret_code
@@ -13,16 +11,22 @@ class Turn
     @red_count = 0
   end
 
-  def check_positions_colors(guess_input)
+  def check_positions_colors
     @red_count = (0...@secret_code.length).count do |index|
       @secret_code[index] == @guess_input[index]
     end
-    colors = @secret_code.uniq
-    @white_count = (0...@secret_code.length).count do |index1|
-      (0...@secret_code.length).any? do |index2|
-        @secret_code[index1] == @guess_input[index2] && index1 != index2 && @secret_code[index1] != @guess_input[index1]
-      end
+    code_colors = Hash.new(0)
+    guess_colors = Hash.new(0)
+    @secret_code.each_char do |color|
+      code_colors[color] += 1
     end
+    @guess_input.each_char do |color|
+      guess_colors[color] += 1
+    end
+    code_colors.keys.each do |color|
+      @white_count += [code_colors[color], guess_colors[color]].min
+    end
+    @white_count -= @red_count
   end
 
   def show_cheat_answer
@@ -30,7 +34,7 @@ class Turn
     exit
   end
 
-  def show_guess_results(guess_input, turn_counter)
+  def show_guess_results(turn_counter)
     puts "\e[2J\e[f"
     puts Rainbow("                     <><><><>   MASTERMIND   <><><><>").rebeccapurple.bold.blink
     puts " _______________________________________________________________________\n\n"

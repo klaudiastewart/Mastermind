@@ -1,12 +1,11 @@
 require 'rainbow'
-require 'colorize'
 
 class Game
   attr_reader :answer,
               :secret_code,
               :run_time,
               :turn_counter,
-              :guess_input #?
+              :guess_input
 
   def initialize (secret_code = nil)
     @secret_code = secret_code
@@ -72,17 +71,14 @@ class Game
     if guess_input == "Q"
       puts Rainbow("  You are now leaving the game...\n\n\n\n\n\n\n\n").orange.bold.blink
       exit
-    end
-    if guess_input == "C"
+    elsif guess_input == "C"
       @turn.show_cheat_answer
-    elsif guess_input.length != @code.secret_code.length
-      puts Rainbow("Invalid input, please enter the correct number of letters in the string.").papayawhip.bold
     end
-    guess_input  # NEW
+    guess_input
   end
 
   def play
-    guess_input = get_guess # NEW
+    guess_input = get_guess
     @turn_counter += 1
     @turn = Turn.new(@code.secret_code, guess_input)
     end_game if guess_input == @code.secret_code
@@ -106,7 +102,6 @@ class Game
     @timer.start_time
     @code = Code.new(@length, @colors)
     @code.make_secret_code
-    # require "pry"; binding.pry
     puts Rainbow("I have generated a '#{@difficulty_input.upcase}' level sequence or code of #{@length} letters, made from the first letters of these colors:").lightskyblue
     puts Rainbow(@colors.join(', ') + ". Use (q)uit at any time to end the game.\n").lightskyblue
   end
