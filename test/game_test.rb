@@ -8,12 +8,11 @@ require './lib/code'
 
 class GameTest < Minitest::Test
   def setup
-
-    @code = Code.new(4, ["Red", "Blue", "Green", "Yellow"])
+    @colors = ["Red", "Blue", "Green", "Yellow"]
+    @code = Code.new(4, @colors)
     @turn = Turn.new(@code, "RRRB")
     @timer = Timer.new
     @game = Game.new(@code)
-    # @game.start_welcome
   end
 
   def test_game_exists
@@ -28,12 +27,15 @@ class GameTest < Minitest::Test
   end
 
   def test_game_turn_counter_starts_at_zero
-    # skip
     assert_equal 0, @game.turn_counter
   end
 
   def test_game_reads_total_time
     @timer = Timer.new
     refute_equal !0, @timer.total_time
+  end
+
+  def test_timer_starts
+    assert Time.now, @timer.start_time
   end
 end

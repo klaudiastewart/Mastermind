@@ -25,14 +25,11 @@ class Game
 
     if @difficulty_input.upcase == "B"
       @length = 4
-      # @colors = ["Red", "Blue", "Green", "Yellow"]
     elsif @difficulty_input.upcase == "I"
       @length = 6
-      # @colors = ["Red", "Blue", "Green", "Yellow", "Orange"]
       @colors << "Orange"
     elsif @difficulty_input.upcase == "A"
       @length = 8
-      # @colors = ["Red", "Blue", "Green", "Yellow", "Orange", "Violet"]
       @colors += ["Orange", "Violet"]
     else
       puts "Invalid input.  Please enter (B)eginner, (I)ntermediate, (A)davanced"
